@@ -30,6 +30,8 @@ body {
     color: var(--text);
     line-height: 1.6;
     min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
@@ -159,12 +161,13 @@ input[type="text"] {
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 8px 12px;
-    font-size: 1rem;
+    font-size: 1rem; /* >= 16px prevents iOS zoom on focus */
     font-family: inherit;
     background: var(--input-bg);
     color: var(--text);
     width: 100px;
     transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none;
 }
 
 input[type="text"] {
@@ -370,7 +373,9 @@ input[type="number"]::-webkit-inner-spin-button {
     gap: 6px;
     max-height: 520px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 4px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .ticket-row {
@@ -578,13 +583,91 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
-    .container { padding: 10px; }
-    header h1 { font-size: 1.35rem; }
-    .card { padding: 16px; }
+    .container { padding: 8px; }
+
+    /* Header: stack lang selector above title */
+    header {
+        padding: 12px 8px 8px;
+    }
+    .lang-selector {
+        position: static;
+        text-align: right;
+        margin-bottom: 8px;
+    }
+    header h1 { font-size: 1.3rem; }
+    .subtitle { font-size: 0.9rem; }
+
+    /* Cards */
+    .card { padding: 14px; }
+
+    /* Form rows: stack fields vertically */
+    .form-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .field-label {
+        align-self: flex-start;
+        padding-bottom: 0;
+    }
+    .field input[type="number"] {
+        width: 100%;
+    }
+
+    /* Buttons: full width and taller tap targets */
+    .button-row {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    .btn.small {
+        width: auto;
+        padding: 8px 14px;
+    }
+
+    /* Tickets header */
+    .tickets-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Ticket rows: allow ball wrapping */
+    .ticket-row {
+        flex-wrap: wrap;
+        padding: 8px 8px;
+    }
     .ball { width: 30px; height: 30px; font-size: 0.75rem; }
-    .ticket-num { min-width: 40px; }
-    .result-summary { grid-template-columns: 1fr 1fr; }
-    .tier-row { flex-direction: column; align-items: stretch; }
+    .ticket-num { min-width: 42px; font-size: 0.75rem; }
+
+    /* Results */
+    .result-summary { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .result-card { padding: 10px 12px; }
+    .result-card .value { font-size: 1.15rem; }
+
+    /* Prize tiers */
+    .tier-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
     .tier-row input[type="number"] { width: 100%; }
     .tier-row .wide { width: 100%; }
+
+    /* Simulation inputs */
+    .form-group input[type="text"] {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
+
+    /* Pagination */
+    .pagination { gap: 10px; font-size: 0.85rem; }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+    .result-summary { grid-template-columns: 1fr; }
+    .ball { width: 28px; height: 28px; font-size: 0.7rem; }
+    header h1 { font-size: 1.15rem; }
 }
