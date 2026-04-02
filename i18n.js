@@ -1,0 +1,624 @@
+'use strict';
+
+let currentLocale = 'en';
+
+const translations = {
+// ─────────────────────────── English ───────────────────────────
+en: {
+    'page.title': 'Lottery Guarantee Calculator',
+    'page.subtitle': 'Generate the minimum tickets needed to guarantee a prize',
+
+    'section1.title': 'Define Your Lottery',
+    'label.pick': 'Pick',
+    'label.from': 'From',
+    'label.numbers': 'numbers',
+    'label.includeBonusDraw': 'Include bonus draw',
+    'label.bonusNumbers': 'bonus number(s)',
+    'summary.pick': 'Pick {mainPick} from {mainPool}',
+    'summary.pickBonus': 'Pick {mainPick} from {mainPool} + {bonusPick} from {bonusPool}',
+
+    'section2.title': 'Set Guarantee Level',
+    'section2.hint': 'The minimum match you want guaranteed no matter which numbers are drawn.',
+    'label.matchAtLeast': 'Match at least',
+    'label.ofMainNumbers': 'of {n} main numbers',
+    'label.ofBonusNumbers': 'of {n} bonus number(s)',
+    'label.costPerTicket': 'Cost per ticket ($)',
+
+    'section3.title': 'Generate Tickets',
+    'btn.estimate': 'Estimate',
+    'btn.generate': 'Generate Tickets',
+    'btn.cancel': 'Cancel',
+    'progress.init': 'Initializing...',
+    'progress.status': '{pct}% \u2014 {ticketCount} tickets generated ({uncovered} subsets remaining)',
+
+    'estimate.lowerBound': 'Lower bound: <strong>{n}</strong> main tickets',
+    'estimate.bonusMultiplier': 'Bonus multiplier: <strong>\u00d7{n}</strong> (need coverage for each bonus number)',
+    'estimate.range': 'Estimated range: <strong>{lo} \u2013 {hi}</strong> tickets',
+    'estimate.cost': 'Estimated cost: <strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': 'This will generate {n}+ tickets. Computation may take several minutes.',
+    'warning.largePool': 'Large number pool — generation may be slow or use significant memory. Use the Estimate button first to check feasibility.',
+    'warning.TOO_MANY_SUBSETS': 'This requires tracking {n} subsets — generation will continue but may be slow or use significant memory.',
+
+    'section4.title': 'Generated Tickets',
+    'tickets.count': '{n} tickets',
+    'tickets.totalCost': 'Total cost:',
+    'btn.downloadCsv': 'Download CSV',
+    'pagination.page': 'Page {current} of {total}',
+    'btn.prev': '\u00ab Prev',
+    'btn.next': 'Next \u00bb',
+
+    'section5.title': 'Simulation',
+    'section5.hint': 'Enter the actual drawn numbers and configure prizes to see your results.',
+    'label.winningMain': 'Winning main numbers (comma-separated)',
+    'label.winningBonus': 'Winning bonus number(s) (comma-separated)',
+    'placeholder.winningMain': 'e.g. 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': 'e.g. 7',
+    'prizeTiers': 'Prize Tiers',
+    'btn.addTier': '+ Add Tier',
+    'btn.simulate': 'Run Simulation',
+    'results': 'Results',
+    'drawnNumbers': 'Drawn Numbers',
+    'tier.match': 'Match',
+    'tier.of': 'of {n}',
+    'tier.bonus': '+ Bonus',
+    'tier.prize': 'Prize $',
+
+    'result.totalCost': 'Total Cost',
+    'result.actualWinnings': 'Actual Winnings',
+    'result.actualNet': 'Actual Net',
+    'result.actualRoi': 'Actual ROI',
+    'result.expectedWinnings': 'Expected Winnings',
+    'result.expectedNet': 'Expected Net',
+    'result.expectedRoi': 'Expected ROI',
+    'result.evPerTicket': 'EV per Ticket',
+    'result.bestMatch': 'Best Match Achieved',
+    'result.bestMatchValue': '{hits} of {total}',
+    'result.anyPrize': 'Any Prize (per ticket)',
+
+    'table.tier': 'Tier',
+    'table.odds': 'Odds (per ticket)',
+    'table.expectedWins': 'Expected Wins',
+    'table.actualWins': 'Actual Wins',
+    'table.prizeEach': 'Prize Each',
+    'table.expectedSub': 'Expected Sub.',
+    'table.actualSub': 'Actual Sub.',
+
+    'alert.enterMainNumbers': 'Please enter exactly {n} main winning numbers.',
+    'alert.mainNumberRange': 'Main numbers must be between 1 and {n}.',
+    'alert.mainNumbersUnique': 'Main numbers must be unique.',
+    'alert.enterBonusNumbers': 'Please enter exactly {n} bonus number(s).',
+    'alert.bonusNumberRange': 'Bonus numbers must be between 1 and {n}.',
+    'alert.definePrizeTier': 'Please define at least one prize tier with a value > 0.',
+
+    'error.workerFailed': 'Web Worker failed. Please serve files via a local web server (e.g. python3 -m http.server 8080).',
+    'error.workerLoadFailed': 'Could not load worker. Please serve files via a local web server (e.g. python3 -m http.server 8080).',
+    'error.GUARANTEE_EXCEEDS_PICK': 'Main guarantee cannot exceed numbers picked per ticket.',
+    'error.GUARANTEE_ALL_MATCHES': 'Guaranteeing all {k} matches requires all {total} possible combinations. This is not practical. Please lower the guarantee.',
+    'error.TOO_MANY_SUBSETS': 'This requires tracking {n} subsets, which may exceed browser limits. Reduce pool size or guarantee level.',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '1 in {n}',
+},
+
+// ─────────────────────────── Português ───────────────────────────
+pt: {
+    'page.title': 'Calculadora de Garantia de Loteria',
+    'page.subtitle': 'Gere o m\u00ednimo de bilhetes necess\u00e1rios para garantir um pr\u00eamio',
+
+    'section1.title': 'Defina Sua Loteria',
+    'label.pick': 'Escolha',
+    'label.from': 'De',
+    'label.numbers': 'n\u00fameros',
+    'label.includeBonusDraw': 'Incluir sorteio b\u00f4nus',
+    'label.bonusNumbers': 'n\u00famero(s) b\u00f4nus',
+    'summary.pick': 'Escolha {mainPick} de {mainPool}',
+    'summary.pickBonus': 'Escolha {mainPick} de {mainPool} + {bonusPick} de {bonusPool}',
+
+    'section2.title': 'Defina o N\u00edvel de Garantia',
+    'section2.hint': 'O acerto m\u00ednimo que voc\u00ea quer garantir independente dos n\u00fameros sorteados.',
+    'label.matchAtLeast': 'Acertar pelo menos',
+    'label.ofMainNumbers': 'de {n} n\u00fameros principais',
+    'label.ofBonusNumbers': 'de {n} n\u00famero(s) b\u00f4nus',
+    'label.costPerTicket': 'Custo por bilhete (R$)',
+
+    'section3.title': 'Gerar Bilhetes',
+    'btn.estimate': 'Estimar',
+    'btn.generate': 'Gerar Bilhetes',
+    'btn.cancel': 'Cancelar',
+    'progress.init': 'Inicializando...',
+    'progress.status': '{pct}% \u2014 {ticketCount} bilhetes gerados ({uncovered} subconjuntos restantes)',
+
+    'estimate.lowerBound': 'Limite inferior: <strong>{n}</strong> bilhetes principais',
+    'estimate.bonusMultiplier': 'Multiplicador b\u00f4nus: <strong>\u00d7{n}</strong> (necessita cobertura para cada n\u00famero b\u00f4nus)',
+    'estimate.range': 'Faixa estimada: <strong>{lo} \u2013 {hi}</strong> bilhetes',
+    'estimate.cost': 'Custo estimado: <strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': 'Isso gerar\u00e1 {n}+ bilhetes. O c\u00e1lculo pode levar v\u00e1rios minutos.',
+    'warning.largePool': 'Pool de n\u00fameros grande \u2014 a gera\u00e7\u00e3o pode ser lenta ou usar muita mem\u00f3ria. Use o bot\u00e3o Estimar primeiro para verificar a viabilidade.',
+    'warning.TOO_MANY_SUBSETS': 'Isso requer rastrear {n} subconjuntos \u2014 a gera\u00e7\u00e3o continuar\u00e1, mas pode ser lenta ou usar muita mem\u00f3ria.',
+
+    'section4.title': 'Bilhetes Gerados',
+    'tickets.count': '{n} bilhetes',
+    'tickets.totalCost': 'Custo total:',
+    'btn.downloadCsv': 'Baixar CSV',
+    'pagination.page': 'P\u00e1gina {current} de {total}',
+    'btn.prev': '\u00ab Anterior',
+    'btn.next': 'Pr\u00f3ximo \u00bb',
+
+    'section5.title': 'Simula\u00e7\u00e3o',
+    'section5.hint': 'Insira os n\u00fameros sorteados e configure os pr\u00eamios para ver seus resultados.',
+    'label.winningMain': 'N\u00fameros principais sorteados (separados por v\u00edrgula)',
+    'label.winningBonus': 'N\u00famero(s) b\u00f4nus sorteados (separados por v\u00edrgula)',
+    'placeholder.winningMain': 'ex. 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': 'ex. 7',
+    'prizeTiers': 'Faixas de Pr\u00eamios',
+    'btn.addTier': '+ Adicionar Faixa',
+    'btn.simulate': 'Executar Simula\u00e7\u00e3o',
+    'results': 'Resultados',
+    'drawnNumbers': 'N\u00fameros Sorteados',
+    'tier.match': 'Acertar',
+    'tier.of': 'de {n}',
+    'tier.bonus': '+ B\u00f4nus',
+    'tier.prize': 'Pr\u00eamio R$',
+
+    'result.totalCost': 'Custo Total',
+    'result.actualWinnings': 'Ganhos Reais',
+    'result.actualNet': 'Resultado Real',
+    'result.actualRoi': 'ROI Real',
+    'result.expectedWinnings': 'Ganhos Esperados',
+    'result.expectedNet': 'Resultado Esperado',
+    'result.expectedRoi': 'ROI Esperado',
+    'result.evPerTicket': 'VE por Bilhete',
+    'result.bestMatch': 'Melhor Acerto',
+    'result.bestMatchValue': '{hits} de {total}',
+    'result.anyPrize': 'Qualquer Pr\u00eamio (por bilhete)',
+
+    'table.tier': 'Faixa',
+    'table.odds': 'Probabilidade (por bilhete)',
+    'table.expectedWins': 'Ganhos Esperados',
+    'table.actualWins': 'Ganhos Reais',
+    'table.prizeEach': 'Pr\u00eamio Unit.',
+    'table.expectedSub': 'Subtotal Esp.',
+    'table.actualSub': 'Subtotal Real',
+
+    'alert.enterMainNumbers': 'Por favor, insira exatamente {n} n\u00fameros principais.',
+    'alert.mainNumberRange': 'Os n\u00fameros principais devem estar entre 1 e {n}.',
+    'alert.mainNumbersUnique': 'Os n\u00fameros principais devem ser \u00fanicos.',
+    'alert.enterBonusNumbers': 'Por favor, insira exatamente {n} n\u00famero(s) b\u00f4nus.',
+    'alert.bonusNumberRange': 'Os n\u00fameros b\u00f4nus devem estar entre 1 e {n}.',
+    'alert.definePrizeTier': 'Defina pelo menos uma faixa de pr\u00eamio com valor > 0.',
+
+    'error.workerFailed': 'Web Worker falhou. Sirva os arquivos via servidor local (ex. python3 -m http.server 8080).',
+    'error.workerLoadFailed': 'N\u00e3o foi poss\u00edvel carregar o worker. Sirva os arquivos via servidor local (ex. python3 -m http.server 8080).',
+    'error.GUARANTEE_EXCEEDS_PICK': 'A garantia n\u00e3o pode exceder a quantidade de n\u00fameros escolhidos por bilhete.',
+    'error.GUARANTEE_ALL_MATCHES': 'Garantir todos os {k} acertos requer todas as {total} combina\u00e7\u00f5es poss\u00edveis. Isso n\u00e3o \u00e9 pr\u00e1tico. Reduza a garantia.',
+    'error.TOO_MANY_SUBSETS': 'Isso requer rastrear {n} subconjuntos, o que pode exceder os limites do navegador. Reduza o tamanho do pool ou o n\u00edvel de garantia.',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '1 em {n}',
+},
+
+// ─────────────────────────── Español ───────────────────────────
+es: {
+    'page.title': 'Calculadora de Garant\u00eda de Loter\u00eda',
+    'page.subtitle': 'Genera el m\u00ednimo de boletos necesarios para garantizar un premio',
+
+    'section1.title': 'Define Tu Loter\u00eda',
+    'label.pick': 'Elige',
+    'label.from': 'De',
+    'label.numbers': 'n\u00fameros',
+    'label.includeBonusDraw': 'Incluir sorteo de bonificaci\u00f3n',
+    'label.bonusNumbers': 'n\u00famero(s) de bonificaci\u00f3n',
+    'summary.pick': 'Elige {mainPick} de {mainPool}',
+    'summary.pickBonus': 'Elige {mainPick} de {mainPool} + {bonusPick} de {bonusPool}',
+
+    'section2.title': 'Nivel de Garant\u00eda',
+    'section2.hint': 'El acierto m\u00ednimo que quieres garantizar sin importar qu\u00e9 n\u00fameros salgan.',
+    'label.matchAtLeast': 'Acertar al menos',
+    'label.ofMainNumbers': 'de {n} n\u00fameros principales',
+    'label.ofBonusNumbers': 'de {n} n\u00famero(s) de bonificaci\u00f3n',
+    'label.costPerTicket': 'Costo por boleto ($)',
+
+    'section3.title': 'Generar Boletos',
+    'btn.estimate': 'Estimar',
+    'btn.generate': 'Generar Boletos',
+    'btn.cancel': 'Cancelar',
+    'progress.init': 'Inicializando...',
+    'progress.status': '{pct}% \u2014 {ticketCount} boletos generados ({uncovered} subconjuntos restantes)',
+
+    'estimate.lowerBound': 'L\u00edmite inferior: <strong>{n}</strong> boletos principales',
+    'estimate.bonusMultiplier': 'Multiplicador de bonificaci\u00f3n: <strong>\u00d7{n}</strong> (necesita cobertura para cada n\u00famero de bonificaci\u00f3n)',
+    'estimate.range': 'Rango estimado: <strong>{lo} \u2013 {hi}</strong> boletos',
+    'estimate.cost': 'Costo estimado: <strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': 'Esto generar\u00e1 {n}+ boletos. El c\u00e1lculo puede tardar varios minutos.',
+    'warning.largePool': 'Pool de n\u00fameros grande \u2014 la generaci\u00f3n puede ser lenta o usar mucha memoria. Usa el bot\u00f3n Estimar primero para verificar la viabilidad.',
+    'warning.TOO_MANY_SUBSETS': 'Esto requiere rastrear {n} subconjuntos \u2014 la generaci\u00f3n continuar\u00e1, pero puede ser lenta o usar mucha memoria.',
+
+    'section4.title': 'Boletos Generados',
+    'tickets.count': '{n} boletos',
+    'tickets.totalCost': 'Costo total:',
+    'btn.downloadCsv': 'Descargar CSV',
+    'pagination.page': 'P\u00e1gina {current} de {total}',
+    'btn.prev': '\u00ab Anterior',
+    'btn.next': 'Siguiente \u00bb',
+
+    'section5.title': 'Simulaci\u00f3n',
+    'section5.hint': 'Ingresa los n\u00fameros ganadores y configura los premios para ver tus resultados.',
+    'label.winningMain': 'N\u00fameros principales ganadores (separados por coma)',
+    'label.winningBonus': 'N\u00famero(s) de bonificaci\u00f3n ganadores (separados por coma)',
+    'placeholder.winningMain': 'ej. 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': 'ej. 7',
+    'prizeTiers': 'Niveles de Premios',
+    'btn.addTier': '+ Agregar Nivel',
+    'btn.simulate': 'Ejecutar Simulaci\u00f3n',
+    'results': 'Resultados',
+    'drawnNumbers': 'N\u00fameros Sorteados',
+    'tier.match': 'Acertar',
+    'tier.of': 'de {n}',
+    'tier.bonus': '+ Bonificaci\u00f3n',
+    'tier.prize': 'Premio $',
+
+    'result.totalCost': 'Costo Total',
+    'result.actualWinnings': 'Ganancias Reales',
+    'result.actualNet': 'Resultado Real',
+    'result.actualRoi': 'ROI Real',
+    'result.expectedWinnings': 'Ganancias Esperadas',
+    'result.expectedNet': 'Resultado Esperado',
+    'result.expectedRoi': 'ROI Esperado',
+    'result.evPerTicket': 'VE por Boleto',
+    'result.bestMatch': 'Mejor Acierto',
+    'result.bestMatchValue': '{hits} de {total}',
+    'result.anyPrize': 'Cualquier Premio (por boleto)',
+
+    'table.tier': 'Nivel',
+    'table.odds': 'Probabilidad (por boleto)',
+    'table.expectedWins': 'Ganados Esperados',
+    'table.actualWins': 'Ganados Reales',
+    'table.prizeEach': 'Premio Unit.',
+    'table.expectedSub': 'Subtotal Esp.',
+    'table.actualSub': 'Subtotal Real',
+
+    'alert.enterMainNumbers': 'Por favor, ingresa exactamente {n} n\u00fameros principales ganadores.',
+    'alert.mainNumberRange': 'Los n\u00fameros principales deben estar entre 1 y {n}.',
+    'alert.mainNumbersUnique': 'Los n\u00fameros principales deben ser \u00fanicos.',
+    'alert.enterBonusNumbers': 'Por favor, ingresa exactamente {n} n\u00famero(s) de bonificaci\u00f3n.',
+    'alert.bonusNumberRange': 'Los n\u00fameros de bonificaci\u00f3n deben estar entre 1 y {n}.',
+    'alert.definePrizeTier': 'Define al menos un nivel de premio con valor > 0.',
+
+    'error.workerFailed': 'Web Worker fall\u00f3. Sirve los archivos mediante un servidor local (ej. python3 -m http.server 8080).',
+    'error.workerLoadFailed': 'No se pudo cargar el worker. Sirve los archivos mediante un servidor local (ej. python3 -m http.server 8080).',
+    'error.GUARANTEE_EXCEEDS_PICK': 'La garant\u00eda no puede exceder la cantidad de n\u00fameros elegidos por boleto.',
+    'error.GUARANTEE_ALL_MATCHES': 'Garantizar los {k} aciertos requiere las {total} combinaciones posibles. Esto no es pr\u00e1ctico. Reduce la garant\u00eda.',
+    'error.TOO_MANY_SUBSETS': 'Esto requiere rastrear {n} subconjuntos, lo que puede exceder los l\u00edmites del navegador. Reduce el tama\u00f1o del pool o el nivel de garant\u00eda.',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '1 en {n}',
+},
+
+// ─────────────────────────── Français ───────────────────────────
+fr: {
+    'page.title': 'Calculateur de Garantie Loterie',
+    'page.subtitle': 'G\u00e9n\u00e9rez le minimum de tickets n\u00e9cessaires pour garantir un gain',
+
+    'section1.title': 'D\u00e9finir Votre Loterie',
+    'label.pick': 'Choisir',
+    'label.from': 'Parmi',
+    'label.numbers': 'num\u00e9ros',
+    'label.includeBonusDraw': 'Inclure tirage bonus',
+    'label.bonusNumbers': 'num\u00e9ro(s) bonus',
+    'summary.pick': 'Choisir {mainPick} parmi {mainPool}',
+    'summary.pickBonus': 'Choisir {mainPick} parmi {mainPool} + {bonusPick} parmi {bonusPool}',
+
+    'section2.title': 'Niveau de Garantie',
+    'section2.hint': 'Le nombre minimum de correspondances garanti quel que soit le tirage.',
+    'label.matchAtLeast': 'Correspondre au moins',
+    'label.ofMainNumbers': 'sur {n} num\u00e9ros principaux',
+    'label.ofBonusNumbers': 'sur {n} num\u00e9ro(s) bonus',
+    'label.costPerTicket': 'Co\u00fbt par ticket (\u20ac)',
+
+    'section3.title': 'G\u00e9n\u00e9rer les Tickets',
+    'btn.estimate': 'Estimer',
+    'btn.generate': 'G\u00e9n\u00e9rer les Tickets',
+    'btn.cancel': 'Annuler',
+    'progress.init': 'Initialisation...',
+    'progress.status': '{pct}% \u2014 {ticketCount} tickets g\u00e9n\u00e9r\u00e9s ({uncovered} sous-ensembles restants)',
+
+    'estimate.lowerBound': 'Limite inf\u00e9rieure : <strong>{n}</strong> tickets principaux',
+    'estimate.bonusMultiplier': 'Multiplicateur bonus : <strong>\u00d7{n}</strong> (couverture n\u00e9cessaire pour chaque num\u00e9ro bonus)',
+    'estimate.range': 'Fourchette estim\u00e9e : <strong>{lo} \u2013 {hi}</strong> tickets',
+    'estimate.cost': 'Co\u00fbt estim\u00e9 : <strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': 'Cela g\u00e9n\u00e9rera {n}+ tickets. Le calcul peut prendre plusieurs minutes.',
+    'warning.largePool': 'Grand pool de num\u00e9ros \u2014 la g\u00e9n\u00e9ration peut \u00eatre lente ou utiliser beaucoup de m\u00e9moire. Utilisez d\u0027abord le bouton Estimer pour v\u00e9rifier la faisabilit\u00e9.',
+    'warning.TOO_MANY_SUBSETS': 'Cela n\u00e9cessite le suivi de {n} sous-ensembles \u2014 la g\u00e9n\u00e9ration continuera, mais peut \u00eatre lente ou utiliser beaucoup de m\u00e9moire.',
+
+    'section4.title': 'Tickets G\u00e9n\u00e9r\u00e9s',
+    'tickets.count': '{n} tickets',
+    'tickets.totalCost': 'Co\u00fbt total :',
+    'btn.downloadCsv': 'T\u00e9l\u00e9charger CSV',
+    'pagination.page': 'Page {current} sur {total}',
+    'btn.prev': '\u00ab Pr\u00e9c.',
+    'btn.next': 'Suiv. \u00bb',
+
+    'section5.title': 'Simulation',
+    'section5.hint': 'Entrez les num\u00e9ros tir\u00e9s et configurez les prix pour voir vos r\u00e9sultats.',
+    'label.winningMain': 'Num\u00e9ros principaux gagnants (s\u00e9par\u00e9s par des virgules)',
+    'label.winningBonus': 'Num\u00e9ro(s) bonus gagnant(s) (s\u00e9par\u00e9s par des virgules)',
+    'placeholder.winningMain': 'ex. 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': 'ex. 7',
+    'prizeTiers': 'Niveaux de Prix',
+    'btn.addTier': '+ Ajouter un Niveau',
+    'btn.simulate': 'Lancer la Simulation',
+    'results': 'R\u00e9sultats',
+    'drawnNumbers': 'Num\u00e9ros Tir\u00e9s',
+    'tier.match': 'Correspondre',
+    'tier.of': 'sur {n}',
+    'tier.bonus': '+ Bonus',
+    'tier.prize': 'Prix \u20ac',
+
+    'result.totalCost': 'Co\u00fbt Total',
+    'result.actualWinnings': 'Gains R\u00e9els',
+    'result.actualNet': 'R\u00e9sultat R\u00e9el',
+    'result.actualRoi': 'ROI R\u00e9el',
+    'result.expectedWinnings': 'Gains Attendus',
+    'result.expectedNet': 'R\u00e9sultat Attendu',
+    'result.expectedRoi': 'ROI Attendu',
+    'result.evPerTicket': 'VE par Ticket',
+    'result.bestMatch': 'Meilleur R\u00e9sultat',
+    'result.bestMatchValue': '{hits} sur {total}',
+    'result.anyPrize': 'Tout Prix (par ticket)',
+
+    'table.tier': 'Niveau',
+    'table.odds': 'Probabilit\u00e9 (par ticket)',
+    'table.expectedWins': 'Gains Esp\u00e9r\u00e9s',
+    'table.actualWins': 'Gains R\u00e9els',
+    'table.prizeEach': 'Prix Unit.',
+    'table.expectedSub': 'Sous-total Esp.',
+    'table.actualSub': 'Sous-total R\u00e9el',
+
+    'alert.enterMainNumbers': 'Veuillez entrer exactement {n} num\u00e9ros principaux gagnants.',
+    'alert.mainNumberRange': 'Les num\u00e9ros principaux doivent \u00eatre entre 1 et {n}.',
+    'alert.mainNumbersUnique': 'Les num\u00e9ros principaux doivent \u00eatre uniques.',
+    'alert.enterBonusNumbers': 'Veuillez entrer exactement {n} num\u00e9ro(s) bonus.',
+    'alert.bonusNumberRange': 'Les num\u00e9ros bonus doivent \u00eatre entre 1 et {n}.',
+    'alert.definePrizeTier': 'D\u00e9finissez au moins un niveau de prix avec une valeur > 0.',
+
+    'error.workerFailed': '\u00c9chec du Web Worker. Servez les fichiers via un serveur local (ex. python3 -m http.server 8080).',
+    'error.workerLoadFailed': 'Impossible de charger le worker. Servez les fichiers via un serveur local (ex. python3 -m http.server 8080).',
+    'error.GUARANTEE_EXCEEDS_PICK': 'La garantie ne peut pas d\u00e9passer le nombre de num\u00e9ros choisis par ticket.',
+    'error.GUARANTEE_ALL_MATCHES': 'Garantir les {k} correspondances n\u00e9cessite les {total} combinaisons possibles. Ce n\'est pas pratique. R\u00e9duisez la garantie.',
+    'error.TOO_MANY_SUBSETS': 'Cela n\u00e9cessite le suivi de {n} sous-ensembles, ce qui peut d\u00e9passer les limites du navigateur. R\u00e9duisez la taille du pool ou le niveau de garantie.',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '1 sur {n}',
+},
+
+// ─────────────────────────── Deutsch ───────────────────────────
+de: {
+    'page.title': 'Lotterie-Garantie-Rechner',
+    'page.subtitle': 'Berechne die minimale Anzahl an Tickets, um einen Gewinn zu garantieren',
+
+    'section1.title': 'Lotterie definieren',
+    'label.pick': 'W\u00e4hle',
+    'label.from': 'Aus',
+    'label.numbers': 'Zahlen',
+    'label.includeBonusDraw': 'Bonusziehung einschlie\u00dfen',
+    'label.bonusNumbers': 'Bonuszahl(en)',
+    'summary.pick': 'W\u00e4hle {mainPick} aus {mainPool}',
+    'summary.pickBonus': 'W\u00e4hle {mainPick} aus {mainPool} + {bonusPick} aus {bonusPool}',
+
+    'section2.title': 'Garantiestufe festlegen',
+    'section2.hint': 'Die minimale Trefferanzahl, die unabh\u00e4ngig von der Ziehung garantiert wird.',
+    'label.matchAtLeast': 'Mindestens treffen',
+    'label.ofMainNumbers': 'von {n} Hauptzahlen',
+    'label.ofBonusNumbers': 'von {n} Bonuszahl(en)',
+    'label.costPerTicket': 'Kosten pro Ticket (\u20ac)',
+
+    'section3.title': 'Tickets generieren',
+    'btn.estimate': 'Sch\u00e4tzen',
+    'btn.generate': 'Tickets generieren',
+    'btn.cancel': 'Abbrechen',
+    'progress.init': 'Initialisierung...',
+    'progress.status': '{pct}% \u2014 {ticketCount} Tickets generiert ({uncovered} Teilmengen verbleibend)',
+
+    'estimate.lowerBound': 'Untergrenze: <strong>{n}</strong> Haupttickets',
+    'estimate.bonusMultiplier': 'Bonus-Multiplikator: <strong>\u00d7{n}</strong> (Abdeckung f\u00fcr jede Bonuszahl erforderlich)',
+    'estimate.range': 'Gesch\u00e4tzte Spanne: <strong>{lo} \u2013 {hi}</strong> Tickets',
+    'estimate.cost': 'Gesch\u00e4tzte Kosten: <strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': 'Dies erzeugt {n}+ Tickets. Die Berechnung kann mehrere Minuten dauern.',
+    'warning.largePool': 'Gro\u00dfer Zahlenpool \u2014 die Generierung kann langsam sein oder viel Speicher verbrauchen. Verwenden Sie zuerst den Sch\u00e4tzen-Button, um die Machbarkeit zu pr\u00fcfen.',
+    'warning.TOO_MANY_SUBSETS': 'Dies erfordert die Verfolgung von {n} Teilmengen \u2014 die Generierung wird fortgesetzt, kann aber langsam sein oder viel Speicher verbrauchen.',
+
+    'section4.title': 'Generierte Tickets',
+    'tickets.count': '{n} Tickets',
+    'tickets.totalCost': 'Gesamtkosten:',
+    'btn.downloadCsv': 'CSV herunterladen',
+    'pagination.page': 'Seite {current} von {total}',
+    'btn.prev': '\u00ab Zur\u00fcck',
+    'btn.next': 'Weiter \u00bb',
+
+    'section5.title': 'Simulation',
+    'section5.hint': 'Gib die gezogenen Zahlen ein und konfiguriere die Preise, um deine Ergebnisse zu sehen.',
+    'label.winningMain': 'Gezogene Hauptzahlen (kommagetrennt)',
+    'label.winningBonus': 'Gezogene Bonuszahl(en) (kommagetrennt)',
+    'placeholder.winningMain': 'z.B. 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': 'z.B. 7',
+    'prizeTiers': 'Gewinnstufen',
+    'btn.addTier': '+ Stufe hinzuf\u00fcgen',
+    'btn.simulate': 'Simulation starten',
+    'results': 'Ergebnisse',
+    'drawnNumbers': 'Gezogene Zahlen',
+    'tier.match': 'Treffer',
+    'tier.of': 'von {n}',
+    'tier.bonus': '+ Bonus',
+    'tier.prize': 'Preis \u20ac',
+
+    'result.totalCost': 'Gesamtkosten',
+    'result.actualWinnings': 'Tats\u00e4chliche Gewinne',
+    'result.actualNet': 'Tats\u00e4chliches Ergebnis',
+    'result.actualRoi': 'Tats\u00e4chlicher ROI',
+    'result.expectedWinnings': 'Erwartete Gewinne',
+    'result.expectedNet': 'Erwartetes Ergebnis',
+    'result.expectedRoi': 'Erwarteter ROI',
+    'result.evPerTicket': 'EW pro Ticket',
+    'result.bestMatch': 'Bestes Ergebnis',
+    'result.bestMatchValue': '{hits} von {total}',
+    'result.anyPrize': 'Jeder Gewinn (pro Ticket)',
+
+    'table.tier': 'Stufe',
+    'table.odds': 'Quote (pro Ticket)',
+    'table.expectedWins': 'Erwartete Gewinne',
+    'table.actualWins': 'Tats\u00e4chliche Gewinne',
+    'table.prizeEach': 'Preis je',
+    'table.expectedSub': 'Erw. Zwischens.',
+    'table.actualSub': 'Tats. Zwischens.',
+
+    'alert.enterMainNumbers': 'Bitte gib genau {n} Hauptzahlen ein.',
+    'alert.mainNumberRange': 'Hauptzahlen m\u00fcssen zwischen 1 und {n} liegen.',
+    'alert.mainNumbersUnique': 'Hauptzahlen m\u00fcssen eindeutig sein.',
+    'alert.enterBonusNumbers': 'Bitte gib genau {n} Bonuszahl(en) ein.',
+    'alert.bonusNumberRange': 'Bonuszahlen m\u00fcssen zwischen 1 und {n} liegen.',
+    'alert.definePrizeTier': 'Definiere mindestens eine Gewinnstufe mit einem Wert > 0.',
+
+    'error.workerFailed': 'Web Worker fehlgeschlagen. Bitte stelle die Dateien \u00fcber einen lokalen Webserver bereit (z.B. python3 -m http.server 8080).',
+    'error.workerLoadFailed': 'Worker konnte nicht geladen werden. Bitte stelle die Dateien \u00fcber einen lokalen Webserver bereit (z.B. python3 -m http.server 8080).',
+    'error.GUARANTEE_EXCEEDS_PICK': 'Die Garantie kann nicht die Anzahl der gew\u00e4hlten Zahlen pro Ticket \u00fcberschreiten.',
+    'error.GUARANTEE_ALL_MATCHES': 'Die Garantie aller {k} Treffer erfordert alle {total} m\u00f6glichen Kombinationen. Das ist nicht praktikabel. Bitte reduziere die Garantie.',
+    'error.TOO_MANY_SUBSETS': 'Dies erfordert die Verfolgung von {n} Teilmengen, was die Browser-Grenzen \u00fcberschreiten kann. Reduziere die Pool-Gr\u00f6\u00dfe oder die Garantiestufe.',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '1 zu {n}',
+},
+
+// ─────────────────────────── 中文 ───────────────────────────
+zh: {
+    'page.title': '\u5f69\u7968\u4fdd\u8bc1\u8ba1\u7b97\u5668',
+    'page.subtitle': '\u751f\u6210\u4fdd\u8bc1\u4e2d\u5956\u6240\u9700\u7684\u6700\u5c11\u5f69\u7968\u6570\u91cf',
+
+    'section1.title': '\u5b9a\u4e49\u4f60\u7684\u5f69\u7968',
+    'label.pick': '\u9009\u62e9',
+    'label.from': '\u4ece',
+    'label.numbers': '\u4e2a\u53f7\u7801\u4e2d',
+    'label.includeBonusDraw': '\u5305\u542b\u5956\u52b1\u53f7\u7801',
+    'label.bonusNumbers': '\u4e2a\u5956\u52b1\u53f7\u7801',
+    'summary.pick': '\u4ece {mainPool} \u4e2d\u9009 {mainPick}',
+    'summary.pickBonus': '\u4ece {mainPool} \u4e2d\u9009 {mainPick} + \u4ece {bonusPool} \u4e2d\u9009 {bonusPick}',
+
+    'section2.title': '\u8bbe\u7f6e\u4fdd\u8bc1\u7ea7\u522b',
+    'section2.hint': '\u65e0\u8bba\u5f00\u51fa\u54ea\u4e9b\u53f7\u7801\uff0c\u4f60\u60f3\u4fdd\u8bc1\u7684\u6700\u4f4e\u5339\u914d\u6570\u3002',
+    'label.matchAtLeast': '\u81f3\u5c11\u5339\u914d',
+    'label.ofMainNumbers': '/ {n} \u4e2a\u4e3b\u53f7\u7801',
+    'label.ofBonusNumbers': '/ {n} \u4e2a\u5956\u52b1\u53f7\u7801',
+    'label.costPerTicket': '\u6bcf\u5f20\u5f69\u7968\u8d39\u7528 (\u00a5)',
+
+    'section3.title': '\u751f\u6210\u5f69\u7968',
+    'btn.estimate': '\u4f30\u7b97',
+    'btn.generate': '\u751f\u6210\u5f69\u7968',
+    'btn.cancel': '\u53d6\u6d88',
+    'progress.init': '\u521d\u59cb\u5316\u4e2d...',
+    'progress.status': '{pct}% \u2014 \u5df2\u751f\u6210 {ticketCount} \u5f20\u5f69\u7968\uff08\u5269\u4f59 {uncovered} \u4e2a\u5b50\u96c6\uff09',
+
+    'estimate.lowerBound': '\u4e0b\u9650\uff1a<strong>{n}</strong> \u5f20\u4e3b\u5f69\u7968',
+    'estimate.bonusMultiplier': '\u5956\u52b1\u4e58\u6570\uff1a<strong>\u00d7{n}</strong>\uff08\u9700\u8981\u8986\u76d6\u6bcf\u4e2a\u5956\u52b1\u53f7\u7801\uff09',
+    'estimate.range': '\u4f30\u8ba1\u8303\u56f4\uff1a<strong>{lo} \u2013 {hi}</strong> \u5f20\u5f69\u7968',
+    'estimate.cost': '\u4f30\u8ba1\u8d39\u7528\uff1a<strong>{lo} \u2013 {hi}</strong>',
+    'warning.large': '\u8fd9\u5c06\u751f\u6210 {n}+ \u5f20\u5f69\u7968\u3002\u8ba1\u7b97\u53ef\u80fd\u9700\u8981\u51e0\u5206\u949f\u3002',
+    'warning.largePool': '\u53f7\u7801\u6c60\u8f83\u5927 \u2014 \u751f\u6210\u53ef\u80fd\u8f83\u6162\u6216\u5360\u7528\u5927\u91cf\u5185\u5b58\u3002\u8bf7\u5148\u4f7f\u7528\u4f30\u7b97\u6309\u94ae\u68c0\u67e5\u53ef\u884c\u6027\u3002',
+    'warning.TOO_MANY_SUBSETS': '\u8fd9\u9700\u8981\u8ddf\u8e2a {n} \u4e2a\u5b50\u96c6 \u2014 \u751f\u6210\u5c06\u7ee7\u7eed\uff0c\u4f46\u53ef\u80fd\u8f83\u6162\u6216\u5360\u7528\u5927\u91cf\u5185\u5b58\u3002',
+
+    'section4.title': '\u5df2\u751f\u6210\u5f69\u7968',
+    'tickets.count': '{n} \u5f20\u5f69\u7968',
+    'tickets.totalCost': '\u603b\u8d39\u7528\uff1a',
+    'btn.downloadCsv': '\u4e0b\u8f7d CSV',
+    'pagination.page': '\u7b2c {current} \u9875\uff0c\u5171 {total} \u9875',
+    'btn.prev': '\u00ab \u4e0a\u4e00\u9875',
+    'btn.next': '\u4e0b\u4e00\u9875 \u00bb',
+
+    'section5.title': '\u6a21\u62df',
+    'section5.hint': '\u8f93\u5165\u5f00\u5956\u53f7\u7801\u5e76\u914d\u7f6e\u5956\u91d1\u67e5\u770b\u7ed3\u679c\u3002',
+    'label.winningMain': '\u4e3b\u53f7\u7801\u5f00\u5956\u53f7\u7801\uff08\u9017\u53f7\u5206\u9694\uff09',
+    'label.winningBonus': '\u5956\u52b1\u53f7\u7801\u5f00\u5956\u53f7\u7801\uff08\u9017\u53f7\u5206\u9694\uff09',
+    'placeholder.winningMain': '\u4f8b\u5982 3, 15, 22, 38, 45, 52',
+    'placeholder.winningBonus': '\u4f8b\u5982 7',
+    'prizeTiers': '\u5956\u91d1\u7b49\u7ea7',
+    'btn.addTier': '+ \u6dfb\u52a0\u7b49\u7ea7',
+    'btn.simulate': '\u8fd0\u884c\u6a21\u62df',
+    'results': '\u7ed3\u679c',
+    'drawnNumbers': '\u5f00\u5956\u53f7\u7801',
+    'tier.match': '\u5339\u914d',
+    'tier.of': '/ {n}',
+    'tier.bonus': '+ \u5956\u52b1',
+    'tier.prize': '\u5956\u91d1 \u00a5',
+
+    'result.totalCost': '\u603b\u8d39\u7528',
+    'result.actualWinnings': '\u5b9e\u9645\u5956\u91d1',
+    'result.actualNet': '\u5b9e\u9645\u7ed3\u679c',
+    'result.actualRoi': '\u5b9e\u9645 ROI',
+    'result.expectedWinnings': '\u671f\u671b\u5956\u91d1',
+    'result.expectedNet': '\u671f\u671b\u7ed3\u679c',
+    'result.expectedRoi': '\u671f\u671b ROI',
+    'result.evPerTicket': '\u6bcf\u5f20\u671f\u671b\u503c',
+    'result.bestMatch': '\u6700\u4f73\u5339\u914d',
+    'result.bestMatchValue': '{hits} / {total}',
+    'result.anyPrize': '\u4efb\u610f\u5956\u91d1\uff08\u6bcf\u5f20\uff09',
+
+    'table.tier': '\u7b49\u7ea7',
+    'table.odds': '\u6982\u7387\uff08\u6bcf\u5f20\uff09',
+    'table.expectedWins': '\u671f\u671b\u4e2d\u5956',
+    'table.actualWins': '\u5b9e\u9645\u4e2d\u5956',
+    'table.prizeEach': '\u5355\u5f20\u5956\u91d1',
+    'table.expectedSub': '\u671f\u671b\u5c0f\u8ba1',
+    'table.actualSub': '\u5b9e\u9645\u5c0f\u8ba1',
+
+    'alert.enterMainNumbers': '\u8bf7\u8f93\u5165\u6070\u597d {n} \u4e2a\u4e3b\u53f7\u7801\u3002',
+    'alert.mainNumberRange': '\u4e3b\u53f7\u7801\u5fc5\u987b\u5728 1 \u5230 {n} \u4e4b\u95f4\u3002',
+    'alert.mainNumbersUnique': '\u4e3b\u53f7\u7801\u4e0d\u80fd\u91cd\u590d\u3002',
+    'alert.enterBonusNumbers': '\u8bf7\u8f93\u5165\u6070\u597d {n} \u4e2a\u5956\u52b1\u53f7\u7801\u3002',
+    'alert.bonusNumberRange': '\u5956\u52b1\u53f7\u7801\u5fc5\u987b\u5728 1 \u5230 {n} \u4e4b\u95f4\u3002',
+    'alert.definePrizeTier': '\u8bf7\u81f3\u5c11\u5b9a\u4e49\u4e00\u4e2a\u5956\u91d1\u503c > 0 \u7684\u5956\u91d1\u7b49\u7ea7\u3002',
+
+    'error.workerFailed': 'Web Worker \u5931\u8d25\u3002\u8bf7\u901a\u8fc7\u672c\u5730 Web \u670d\u52a1\u5668\u63d0\u4f9b\u6587\u4ef6\uff08\u4f8b\u5982 python3 -m http.server 8080\uff09\u3002',
+    'error.workerLoadFailed': '\u65e0\u6cd5\u52a0\u8f7d worker\u3002\u8bf7\u901a\u8fc7\u672c\u5730 Web \u670d\u52a1\u5668\u63d0\u4f9b\u6587\u4ef6\uff08\u4f8b\u5982 python3 -m http.server 8080\uff09\u3002',
+    'error.GUARANTEE_EXCEEDS_PICK': '\u4fdd\u8bc1\u4e0d\u80fd\u8d85\u8fc7\u6bcf\u5f20\u5f69\u7968\u9009\u62e9\u7684\u53f7\u7801\u6570\u3002',
+    'error.GUARANTEE_ALL_MATCHES': '\u4fdd\u8bc1\u6240\u6709 {k} \u4e2a\u5339\u914d\u9700\u8981\u6240\u6709 {total} \u79cd\u53ef\u80fd\u7684\u7ec4\u5408\u3002\u8fd9\u4e0d\u5b9e\u9645\u3002\u8bf7\u964d\u4f4e\u4fdd\u8bc1\u7ea7\u522b\u3002',
+    'error.TOO_MANY_SUBSETS': '\u8fd9\u9700\u8981\u8ddf\u8e2a {n} \u4e2a\u5b50\u96c6\uff0c\u53ef\u80fd\u8d85\u51fa\u6d4f\u89c8\u5668\u9650\u5236\u3002\u8bf7\u51cf\u5c0f\u53f7\u7801\u6c60\u6216\u4fdd\u8bc1\u7ea7\u522b\u3002',
+
+    'odds.none': '\u2014',
+    'odds.oneIn': '{n} \u5206\u4e4b\u4e00',
+},
+};
+
+// ===== Translation Engine =====
+
+function t(key, params) {
+    const dict = translations[currentLocale] || translations.en;
+    let str = dict[key] || translations.en[key] || key;
+    if (params) {
+        for (const [k, v] of Object.entries(params)) {
+            str = str.replaceAll(`{${k}}`, v);
+        }
+    }
+    return str;
+}
+
+function formatNumber(n) {
+    return n.toLocaleString(currentLocale);
+}
+
+function setLocale(locale) {
+    currentLocale = locale;
+    document.documentElement.lang = locale;
+    document.title = t('page.title');
+    localStorage.setItem('lottery-lang', locale);
+    translatePage();
+}
+
+function translatePage() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        el.innerHTML = t(el.getAttribute('data-i18n-html'));
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+    });
+}

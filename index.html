@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Guarantee Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lang-selector">
+                <select id="langSelect" aria-label="Language">
+                    <option value="en">English</option>
+                    <option value="pt">Portugu&#234;s</option>
+                    <option value="es">Espa&#241;ol</option>
+                    <option value="fr">Fran&#231;ais</option>
+                    <option value="de">Deutsch</option>
+                    <option value="zh">&#20013;&#25991;</option>
+                </select>
+            </div>
+            <h1 data-i18n="page.title">Lottery Guarantee Calculator</h1>
+            <p class="subtitle" data-i18n="page.subtitle">Generate the minimum tickets needed to guarantee a prize</p>
+        </header>
+
+        <!-- 1. Lottery Configuration -->
+        <section class="card">
+            <h2><span class="step">1</span> <span data-i18n="section1.title">Define Your Lottery</span></h2>
+            <div class="form-row">
+                <div class="field">
+                    <label for="mainPick" data-i18n="label.pick">Pick</label>
+                    <input type="number" id="mainPick" value="6" min="2">
+                </div>
+                <div class="field">
+                    <label for="mainPool" data-i18n="label.from">From</label>
+                    <input type="number" id="mainPool" value="60" min="3">
+                </div>
+                <span class="field-label" data-i18n="label.numbers">numbers</span>
+            </div>
+
+            <label class="checkbox-label">
+                <input type="checkbox" id="bonusEnabled">
+                <span data-i18n="label.includeBonusDraw">Include bonus draw</span>
+            </label>
+
+            <div id="bonusFields" class="form-row">
+                <div class="field">
+                    <label for="bonusPick" data-i18n="label.pick">Pick</label>
+                    <input type="number" id="bonusPick" value="1" min="1">
+                </div>
+                <div class="field">
+                    <label for="bonusPool" data-i18n="label.from">From</label>
+                    <input type="number" id="bonusPool" value="12" min="2">
+                </div>
+                <span class="field-label" data-i18n="label.bonusNumbers">bonus number(s)</span>
+            </div>
+
+            <div class="summary" id="lotterySummary"></div>
+            <div id="configWarning" class="warning-box" hidden></div>
+        </section>
+
+        <!-- 2. Guarantee Level -->
+        <section class="card">
+            <h2><span class="step">2</span> <span data-i18n="section2.title">Set Guarantee Level</span></h2>
+            <p class="hint" data-i18n="section2.hint">The minimum match you want guaranteed no matter which numbers are drawn.</p>
+
+            <div class="form-row">
+                <div class="field">
+                    <label for="mainGuarantee" data-i18n="label.matchAtLeast">Match at least</label>
+                    <input type="number" id="mainGuarantee" value="3" min="1" max="6">
+                </div>
+                <span class="field-label" id="mainFieldLabel"></span>
+            </div>
+
+            <div class="form-row" id="bonusGuaranteeRow">
+                <div class="field">
+                    <label for="bonusGuarantee" data-i18n="label.matchAtLeast">Match at least</label>
+                    <input type="number" id="bonusGuarantee" value="0" min="0" max="1">
+                </div>
+                <span class="field-label" id="bonusFieldLabel"></span>
+            </div>
+
+            <div class="form-row">
+                <div class="field">
+                    <label for="ticketCost" data-i18n="label.costPerTicket">Cost per ticket ($)</label>
+                    <input type="number" id="ticketCost" value="2.00" min="0" step="0.01">
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Generate -->
+        <section class="card">
+            <h2><span class="step">3</span> <span data-i18n="section3.title">Generate Tickets</span></h2>
+
+            <div id="estimateBox" class="info-box" hidden></div>
+            <div id="warningBox" class="warning-box" hidden></div>
+
+            <div class="button-row">
+                <button class="btn secondary" id="btnEstimate" data-i18n="btn.estimate">Estimate</button>
+                <button class="btn primary" id="btnGenerate" data-i18n="btn.generate">Generate Tickets</button>
+                <button class="btn danger" id="btnCancel" hidden data-i18n="btn.cancel">Cancel</button>
+            </div>
+
+            <div id="progressBox" hidden>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText" data-i18n="progress.init">Initializing...</p>
+            </div>
+
+            <div id="errorBox" class="error-box" hidden></div>
+        </section>
+
+        <!-- 4. Tickets -->
+        <section class="card" id="ticketsSection" hidden>
+            <h2><span class="step">4</span> <span data-i18n="section4.title">Generated Tickets</span></h2>
+            <div class="tickets-header">
+                <div>
+                    <strong id="ticketCount">0</strong> <span id="ticketCountLabel"></span> &middot;
+                    <span id="totalCostLabel"></span> <strong id="totalCost">$0</strong>
+                </div>
+                <button class="btn secondary small" id="btnDownload" data-i18n="btn.downloadCsv">Download CSV</button>
+            </div>
+
+            <div id="ticketsDisplay" class="tickets-grid"></div>
+
+            <div class="pagination">
+                <button class="btn secondary small" id="btnPrev" disabled data-i18n="btn.prev">&laquo; Prev</button>
+                <span id="pageInfo"></span>
+                <button class="btn secondary small" id="btnNext" disabled data-i18n="btn.next">Next &raquo;</button>
+            </div>
+        </section>
+
+        <!-- 5. Simulation -->
+        <section class="card" id="simulationSection" hidden>
+            <h2><span class="step">5</span> <span data-i18n="section5.title">Simulation</span></h2>
+            <p class="hint" data-i18n="section5.hint">Enter the actual drawn numbers and configure prizes to see your results.</p>
+
+            <div class="form-group">
+                <label for="winningMain" data-i18n="label.winningMain">Winning main numbers (comma-separated)</label>
+                <input type="text" id="winningMain" placeholder="e.g. 3, 15, 22, 38, 45, 52" data-i18n-placeholder="placeholder.winningMain">
+            </div>
+
+            <div class="form-group" id="winningBonusGroup">
+                <label for="winningBonus" data-i18n="label.winningBonus">Winning bonus number(s) (comma-separated)</label>
+                <input type="text" id="winningBonus" placeholder="e.g. 7" data-i18n-placeholder="placeholder.winningBonus">
+            </div>
+
+            <h3 data-i18n="prizeTiers">Prize Tiers</h3>
+            <div id="prizeTiers"></div>
+            <button class="btn secondary small" id="btnAddTier" style="margin-top:6px" data-i18n="btn.addTier">+ Add Tier</button>
+
+            <div class="button-row">
+                <button class="btn primary" id="btnSimulate" data-i18n="btn.simulate">Run Simulation</button>
+            </div>
+
+            <div id="simResults" hidden>
+                <h3 data-i18n="results">Results</h3>
+                <div id="resultsContent"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
