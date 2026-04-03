@@ -226,6 +226,11 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: center;
 }
 
+/* ===== Hidden attribute override ===== */
+[hidden] {
+    display: none !important;
+}
+
 /* ===== Buttons ===== */
 .btn {
     display: inline-flex;
