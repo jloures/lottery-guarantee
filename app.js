@@ -120,8 +120,6 @@ function bindEvents() {
     dom.btnGenerate.addEventListener('click', requestGenerate);
     dom.btnCancel.addEventListener('click', cancelGeneration);
     dom.btnDownload.addEventListener('click', downloadCSV);
-    dom.btnPrev.addEventListener('click', () => { S.page--; renderTickets(); });
-    dom.btnNext.addEventListener('click', () => { S.page++; renderTickets(); });
     dom.btnAddTier.addEventListener('click', () => addTierRow(0, false, 0));
     dom.btnSimulate.addEventListener('click', runSimulation);
 
