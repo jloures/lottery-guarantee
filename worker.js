@@ -209,6 +209,71 @@ self.onmessage = function (e) {
         });
     }
 
+    if (data.type === 'sanityCheck') {
+        const { tickets, mainPool, mainPick, mainGuarantee } = data;
+        const n = mainPool;
+        const t = mainGuarantee;
+        const totalCombinations = C(n, t);
+
+        // Build a Set of numbers for each ticket for fast lookup
+        const ticketSets = tickets.map(ticket => new Set(ticket));
+
+        let checked = 0;
+        let missingCount = 0;
+        let lastProgressTime = Date.now();
+
+        // Enumerate all t-subsets of {0, 1, ..., n-1}
+        const idx = new Array(t);
+        for (let i = 0; i < t; i++) idx[i] = i;
+
+        while (true) {
+            // Check if any ticket contains all elements of this t-subset
+            let found = false;
+            for (let ti = 0; ti < ticketSets.length; ti++) {
+                let allMatch = true;
+                for (let j = 0; j < t; j++) {
+                    if (!ticketSets[ti].has(idx[j])) {
+                        allMatch = false;
+                        break;
+                    }
+                }
+                if (allMatch) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) missingCount++;
+            checked++;
+
+            // Progress update
+            const now = Date.now();
+            if (now - lastProgressTime > 200) {
+                lastProgressTime = now;
+                postMessage({
+                    type: 'sanityProgress',
+                    percent: checked / totalCombinations,
+                    checked,
+                    total: totalCombinations
+                });
+            }
+
+            // Advance to next t-subset
+            let i = t - 1;
+            while (i >= 0 && idx[i] === n - t + i) i--;
+            if (i < 0) break;
+            idx[i]++;
+            for (let j = i + 1; j < t; j++) idx[j] = idx[j - 1] + 1;
+        }
+
+        postMessage({
+            type: 'sanityResult',
+            passed: missingCount === 0,
+            totalCombinations,
+            missingCount
+        });
+    }
+
     if (data.type === 'generate') {
         try {
             const { mainPool, mainPick, mainGuarantee, bonusPool, bonusPick, bonusGuarantee } = data;

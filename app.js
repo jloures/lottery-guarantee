@@ -35,6 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'ticketsSection', 'ticketCount', 'ticketCountLabel', 'totalCostLabel',
         'totalCost', 'btnDownload',
         'ticketsDisplay', 'btnPrev', 'btnNext', 'pageInfo',
+        'btnSanityCheck', 'sanityCheckInfo', 'sanityProgressBox',
+        'sanityProgressFill', 'sanityProgressText',
+        'sanityBadge', 'sanityBadgeTitle', 'sanityBadgeDetail',
+        'sanityFailBadge', 'sanityFailTitle', 'sanityFailDetail',
         'simulationSection', 'winningMain', 'winningBonus', 'winningBonusGroup',
         'prizeTiers', 'btnAddTier', 'btnSimulate', 'simResults', 'resultsContent',
         'langSelect'
@@ -99,6 +103,8 @@ function onWorkerMessage(e) {
         dom.warningBox.textContent = msg;
         dom.warningBox.hidden = false;
     }
+    if (d.type === 'sanityProgress') updateSanityProgress(d);
+    if (d.type === 'sanityResult') showSanityResult(d);
     if (d.type === 'error') {
         const msg = d.code ? t('error.' + d.code, d.params || {}) : d.message;
         showError(msg);
@@ -120,6 +126,7 @@ function bindEvents() {
     dom.btnGenerate.addEventListener('click', requestGenerate);
     dom.btnCancel.addEventListener('click', cancelGeneration);
     dom.btnDownload.addEventListener('click', downloadCSV);
+    dom.btnSanityCheck.addEventListener('click', requestSanityCheck);
     dom.btnAddTier.addEventListener('click', () => addTierRow(0, false, 0));
     dom.btnSimulate.addEventListener('click', runSimulation);
 
@@ -257,6 +264,11 @@ function onComplete(d) {
 
     dom.ticketsSection.hidden = false;
     dom.simulationSection.hidden = false;
+    dom.sanityBadge.hidden = true;
+    dom.sanityFailBadge.hidden = true;
+    dom.sanityCheckInfo.hidden = true;
+    dom.sanityProgressBox.hidden = true;
+    dom.btnSanityCheck.disabled = false;
     updateTicketHeader();
     renderTickets();
     generateDefaultTiers();
@@ -315,6 +327,62 @@ function renderTickets() {
     dom.btnPrev.onclick = () => { S.page--; renderTickets(); };
     dom.btnNext.onclick = () => { S.page++; renderTickets(); };
     updatePaginationUI();
+}
+
+// ===== Sanity Check =====
+function requestSanityCheck() {
+    if (S.tickets.length === 0) return;
+
+    // Reset UI
+    dom.sanityBadge.hidden = true;
+    dom.sanityFailBadge.hidden = true;
+    dom.sanityCheckInfo.hidden = false;
+    dom.sanityProgressBox.hidden = false;
+    dom.sanityProgressFill.style.width = '0%';
+    dom.sanityProgressText.textContent = t('sanity.starting');
+    dom.btnSanityCheck.disabled = true;
+
+    // Send tickets to worker (convert to 0-indexed)
+    worker.postMessage({
+        type: 'sanityCheck',
+        tickets: S.tickets.map(ticket => ticket.map(x => x - 1)),
+        mainPool: S.mainPool,
+        mainPick: S.mainPick,
+        mainGuarantee: S.mainGuarantee
+    });
+}
+
+function updateSanityProgress(d) {
+    const pct = Math.round(d.percent * 100);
+    dom.sanityProgressFill.style.width = pct + '%';
+    dom.sanityProgressText.textContent = t('sanity.progress', {
+        pct,
+        checked: formatNumber(d.checked),
+        total: formatNumber(d.total)
+    });
+}
+
+function showSanityResult(d) {
+    dom.sanityProgressBox.hidden = true;
+    dom.btnSanityCheck.disabled = false;
+
+    if (d.passed) {
+        dom.sanityBadge.hidden = false;
+        dom.sanityFailBadge.hidden = true;
+        dom.sanityBadgeTitle.textContent = t('sanity.passTitle');
+        dom.sanityBadgeDetail.textContent = t('sanity.passDetail', {
+            total: formatNumber(d.totalCombinations),
+            t: S.mainGuarantee,
+            n: S.mainPool
+        });
+    } else {
+        dom.sanityFailBadge.hidden = false;
+        dom.sanityBadge.hidden = true;
+        dom.sanityFailTitle.textContent = t('sanity.failTitle');
+        dom.sanityFailDetail.textContent = t('sanity.failDetail', {
+            missing: formatNumber(d.missingCount)
+        });
+    }
 }
 
 // ===== CSV Download =====

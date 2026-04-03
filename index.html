@@ -119,7 +119,37 @@
                     <strong id="ticketCount">0</strong> <span id="ticketCountLabel"></span> &middot;
                     <span id="totalCostLabel"></span> <strong id="totalCost">$0</strong>
                 </div>
-                <button class="btn secondary small" id="btnDownload" data-i18n="btn.downloadCsv">Download CSV</button>
+                <div class="tickets-header-actions">
+                    <button class="btn secondary small" id="btnSanityCheck" data-i18n="btn.sanityCheck">Sanity Check</button>
+                    <button class="btn secondary small" id="btnDownload" data-i18n="btn.downloadCsv">Download CSV</button>
+                </div>
+            </div>
+
+            <div id="sanityCheckInfo" class="sanity-info" hidden>
+                <p data-i18n="sanity.explanation">The sanity check verifies the guarantee by testing every possible combination of drawn numbers against your tickets. If every combination has at least one ticket matching the required numbers, the guarantee is mathematically confirmed.</p>
+            </div>
+
+            <div id="sanityProgressBox" hidden>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="sanityProgressFill"></div>
+                </div>
+                <p class="progress-text" id="sanityProgressText"></p>
+            </div>
+
+            <div id="sanityBadge" class="sanity-badge" hidden>
+                <div class="sanity-badge-icon">&#10003;</div>
+                <div class="sanity-badge-text">
+                    <strong id="sanityBadgeTitle"></strong>
+                    <span id="sanityBadgeDetail"></span>
+                </div>
+            </div>
+
+            <div id="sanityFailBadge" class="sanity-badge fail" hidden>
+                <div class="sanity-badge-icon">&#10007;</div>
+                <div class="sanity-badge-text">
+                    <strong id="sanityFailTitle"></strong>
+                    <span id="sanityFailDetail"></span>
+                </div>
             </div>
 
             <div id="ticketsDisplay" class="tickets-grid"></div>
