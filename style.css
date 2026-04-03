@@ -447,6 +447,21 @@ input[type="number"]::-webkit-inner-spin-button {
     flex-shrink: 0;
 }
 
+/* ===== Statistics ===== */
+.guarantee-tag {
+    display: inline-block;
+    background: var(--success);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
 /* ===== Sanity Check ===== */
 .tickets-header-actions {
     display: flex;

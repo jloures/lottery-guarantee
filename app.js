@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'ticketsDisplay', 'btnPrev', 'btnNext', 'pageInfo',
         'btnSanityCheck', 'sanityCheckInfo', 'sanityProgressBox',
         'sanityProgressFill', 'sanityProgressText', 'sanityResultBox',
+        'statsSection', 'statsContent',
         'simulationSection', 'winningMain', 'winningBonus', 'winningBonusGroup',
         'prizeTiers', 'btnAddTier', 'btnSimulate', 'simResults', 'resultsContent',
         'langSelect'
@@ -135,6 +136,7 @@ function bindEvents() {
         if (S.tickets.length > 0) {
             updateTicketHeader();
             renderTickets();
+            renderStats();
         }
     });
 }
@@ -221,6 +223,7 @@ function showEstimate(d) {
 function requestGenerate() {
     dom.errorBox.hidden = true;
     dom.ticketsSection.hidden = true;
+    dom.statsSection.hidden = true;
     dom.simulationSection.hidden = true;
     dom.progressBox.hidden = false;
     dom.progressFill.style.width = '0%';
@@ -261,6 +264,7 @@ function onComplete(d) {
     S.page = 0;
 
     dom.ticketsSection.hidden = false;
+    dom.statsSection.hidden = false;
     dom.simulationSection.hidden = false;
     dom.sanityResultBox.hidden = true;
     dom.sanityResultBox.innerHTML = '';
@@ -269,6 +273,7 @@ function onComplete(d) {
     dom.btnSanityCheck.disabled = false;
     updateTicketHeader();
     renderTickets();
+    renderStats();
     generateDefaultTiers();
 }
 
@@ -325,6 +330,73 @@ function renderTickets() {
     dom.btnPrev.onclick = () => { S.page--; renderTickets(); };
     dom.btnNext.onclick = () => { S.page++; renderTickets(); };
     updatePaginationUI();
+}
+
+// ===== Statistics =====
+function renderStats() {
+    const n = S.mainPool;
+    const k = S.mainPick;
+    const numTickets = S.tickets.length;
+
+    // Per-ticket probability of exactly j matches
+    const probs = [];
+    for (let j = 0; j <= k; j++) probs[j] = pExactMainMatches(j);
+
+    // Cumulative: P(>= j) per ticket
+    const pAtLeast = new Array(k + 1).fill(0);
+    for (let j = k; j >= 0; j--) {
+        pAtLeast[j] = probs[j] + (j < k ? pAtLeast[j + 1] : 0);
+    }
+
+    // P(at least one ticket matches >= j) = 1 - (1 - pAtLeast[j])^N
+    const pAnyTicket = pAtLeast.map(p => 1 - Math.pow(1 - p, numTickets));
+
+    let html = '<div class="table-scroll"><table class="breakdown-table"><thead><tr>';
+    html += `<th>${t('stats.match')}</th>`;
+    html += `<th>${t('stats.oddsPerTicket')}</th>`;
+    html += `<th>${t('stats.expectedTickets')}</th>`;
+    html += `<th>${t('stats.pAtLeastOne')}</th>`;
+    html += '</tr></thead><tbody>';
+
+    for (let j = k; j >= 0; j--) {
+        const isGuarantee = j === S.mainGuarantee;
+        const cls = isGuarantee ? ' class="highlight"' : '';
+        const label = `${j} / ${k}`;
+        const ev = probs[j] * numTickets;
+
+        html += `<tr${cls}>`;
+        html += `<td>${label}${isGuarantee ? ` <span class="guarantee-tag">${t('stats.guaranteed')}</span>` : ''}</td>`;
+        html += `<td>${formatOdds(probs[j])}</td>`;
+        html += `<td>${ev < 0.01 && ev > 0 ? ev.toExponential(1) : ev.toFixed(1)}</td>`;
+        html += `<td>${j <= S.mainGuarantee ? `<strong>100%</strong>` : formatOdds(pAnyTicket[j])}</td>`;
+        html += '</tr>';
+    }
+
+    html += '</tbody></table></div>';
+
+    // Summary cards
+    const summaryHtml = `
+        <div class="result-summary" style="margin-bottom:16px">
+            <div class="result-card">
+                <div class="label">${t('stats.totalTickets')}</div>
+                <div class="value">${formatNumber(numTickets)}</div>
+            </div>
+            <div class="result-card">
+                <div class="label">${t('stats.guaranteedMatch')}</div>
+                <div class="value">${S.mainGuarantee} / ${k}</div>
+            </div>
+            <div class="result-card">
+                <div class="label">${t('stats.totalCombinations')}</div>
+                <div class="value">${formatNumber(Math.round(binomial(n, k)))}</div>
+            </div>
+            <div class="result-card">
+                <div class="label">${t('stats.coverageRatio')}</div>
+                <div class="value">${(numTickets / binomial(n, k) * 100).toFixed(4)}%</div>
+            </div>
+        </div>
+    `;
+
+    dom.statsContent.innerHTML = summaryHtml + html;
 }
 
 // ===== Sanity Check =====
