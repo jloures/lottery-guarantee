@@ -215,62 +215,36 @@ self.onmessage = function (e) {
         const t = mainGuarantee;
         const totalCombinations = C(n, t);
 
-        // Build a Set of numbers for each ticket for fast lookup
-        const ticketSets = tickets.map(ticket => new Set(ticket));
+        // Mark coverage by iterating tickets (not subsets).
+        // Each ticket covers C(k, t) subsets — far fewer than C(n, t) total.
+        const covered = new Uint8Array(totalCombinations);
+        let coveredCount = 0;
 
-        let checked = 0;
-        let missingCount = 0;
-        let lastProgressTime = Date.now();
-
-        // Enumerate all t-subsets of {0, 1, ..., n-1}
-        const idx = new Array(t);
-        for (let i = 0; i < t; i++) idx[i] = i;
-
-        while (true) {
-            // Check if any ticket contains all elements of this t-subset
-            let found = false;
-            for (let ti = 0; ti < ticketSets.length; ti++) {
-                let allMatch = true;
-                for (let j = 0; j < t; j++) {
-                    if (!ticketSets[ti].has(idx[j])) {
-                        allMatch = false;
-                        break;
-                    }
-                }
-                if (allMatch) {
-                    found = true;
-                    break;
+        for (let i = 0; i < tickets.length; i++) {
+            const ticket = tickets[i].slice().sort((a, b) => a - b);
+            const ranks = getContainedRanks(ticket, t);
+            for (const r of ranks) {
+                if (!covered[r]) {
+                    covered[r] = 1;
+                    coveredCount++;
                 }
             }
 
-            if (!found) missingCount++;
-            checked++;
-
-            // Progress update
-            const now = Date.now();
-            if (now - lastProgressTime > 200) {
-                lastProgressTime = now;
+            if ((i & 63) === 0 || i === tickets.length - 1) {
                 postMessage({
                     type: 'sanityProgress',
-                    percent: checked / totalCombinations,
-                    checked,
+                    percent: coveredCount / totalCombinations,
+                    checked: coveredCount,
                     total: totalCombinations
                 });
             }
-
-            // Advance to next t-subset
-            let i = t - 1;
-            while (i >= 0 && idx[i] === n - t + i) i--;
-            if (i < 0) break;
-            idx[i]++;
-            for (let j = i + 1; j < t; j++) idx[j] = idx[j - 1] + 1;
         }
 
         postMessage({
             type: 'sanityResult',
-            passed: missingCount === 0,
+            passed: coveredCount === totalCombinations,
             totalCombinations,
-            missingCount
+            missingCount: totalCombinations - coveredCount
         });
     }
 
