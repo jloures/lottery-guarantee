@@ -36,9 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'totalCost', 'btnDownload',
         'ticketsDisplay', 'btnPrev', 'btnNext', 'pageInfo',
         'btnSanityCheck', 'sanityCheckInfo', 'sanityProgressBox',
-        'sanityProgressFill', 'sanityProgressText',
-        'sanityBadge', 'sanityBadgeTitle', 'sanityBadgeDetail',
-        'sanityFailBadge', 'sanityFailTitle', 'sanityFailDetail',
+        'sanityProgressFill', 'sanityProgressText', 'sanityResultBox',
         'simulationSection', 'winningMain', 'winningBonus', 'winningBonusGroup',
         'prizeTiers', 'btnAddTier', 'btnSimulate', 'simResults', 'resultsContent',
         'langSelect'
@@ -264,8 +262,8 @@ function onComplete(d) {
 
     dom.ticketsSection.hidden = false;
     dom.simulationSection.hidden = false;
-    dom.sanityBadge.hidden = true;
-    dom.sanityFailBadge.hidden = true;
+    dom.sanityResultBox.hidden = true;
+    dom.sanityResultBox.innerHTML = '';
     dom.sanityCheckInfo.hidden = true;
     dom.sanityProgressBox.hidden = true;
     dom.btnSanityCheck.disabled = false;
@@ -334,8 +332,8 @@ function requestSanityCheck() {
     if (S.tickets.length === 0) return;
 
     // Reset UI
-    dom.sanityBadge.hidden = true;
-    dom.sanityFailBadge.hidden = true;
+    dom.sanityResultBox.hidden = true;
+    dom.sanityResultBox.innerHTML = '';
     dom.sanityCheckInfo.hidden = false;
     dom.sanityProgressBox.hidden = false;
     dom.sanityProgressFill.style.width = '0%';
@@ -366,23 +364,26 @@ function showSanityResult(d) {
     dom.sanityProgressBox.hidden = true;
     dom.btnSanityCheck.disabled = false;
 
-    if (d.passed) {
-        dom.sanityBadge.hidden = false;
-        dom.sanityFailBadge.hidden = true;
-        dom.sanityBadgeTitle.textContent = t('sanity.passTitle');
-        dom.sanityBadgeDetail.textContent = t('sanity.passDetail', {
-            total: formatNumber(d.totalCombinations),
-            t: S.mainGuarantee,
-            n: S.mainPool
-        });
-    } else {
-        dom.sanityFailBadge.hidden = false;
-        dom.sanityBadge.hidden = true;
-        dom.sanityFailTitle.textContent = t('sanity.failTitle');
-        dom.sanityFailDetail.textContent = t('sanity.failDetail', {
-            missing: formatNumber(d.missingCount)
-        });
-    }
+    const passed = d.passed;
+    const icon = passed ? '\u2713' : '\u2717';
+    const cls = passed ? 'sanity-badge' : 'sanity-badge fail';
+    const title = passed
+        ? t('sanity.passTitle')
+        : t('sanity.failTitle');
+    const detail = passed
+        ? t('sanity.passDetail', { total: formatNumber(d.totalCombinations), t: S.mainGuarantee, n: S.mainPool })
+        : t('sanity.failDetail', { missing: formatNumber(d.missingCount) });
+
+    dom.sanityResultBox.innerHTML = `
+        <div class="${cls}">
+            <div class="sanity-badge-icon">${icon}</div>
+            <div class="sanity-badge-text">
+                <strong>${title}</strong>
+                <span>${detail}</span>
+            </div>
+        </div>
+    `;
+    dom.sanityResultBox.hidden = false;
 }
 
 // ===== CSV Download =====
