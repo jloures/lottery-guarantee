@@ -79,7 +79,97 @@ function getContainedRanks(ticket, t) {
     return ranks;
 }
 
+// ===== Chunked Bit Set for Large Coverage Tracking =====
+// Typed arrays crash when totalSubsets exceeds ~2 billion (RangeError).
+// This class allocates memory in small chunks (4 MB each) on demand,
+// allowing coverage tracking for arbitrarily large subset counts.
+
+class ChunkedBitSet {
+    constructor(size) {
+        this.size = size;
+        this.CHUNK_BITS = 1 << 25; // 32M bits = 4 MB per chunk
+        this.CHUNK_WORDS = this.CHUNK_BITS >>> 5;
+        this.numChunks = Math.ceil(size / this.CHUNK_BITS);
+        this.chunks = new Array(this.numChunks).fill(null);
+        this.chunkCovered = new Float64Array(this.numChunks);
+        this.count = 0;
+    }
+
+    has(index) {
+        const ci = Math.floor(index / this.CHUNK_BITS);
+        const chunk = this.chunks[ci];
+        if (!chunk) return false;
+        const local = index - ci * this.CHUNK_BITS;
+        return (chunk[local >>> 5] & (1 << (local & 31))) !== 0;
+    }
+
+    add(index) {
+        const ci = Math.floor(index / this.CHUNK_BITS);
+        if (!this.chunks[ci]) {
+            this.chunks[ci] = new Uint32Array(this.CHUNK_WORDS);
+        }
+        const local = index - ci * this.CHUNK_BITS;
+        const word = local >>> 5;
+        const bit = 1 << (local & 31);
+        if (this.chunks[ci][word] & bit) return false;
+        this.chunks[ci][word] |= bit;
+        this.chunkCovered[ci]++;
+        this.count++;
+        return true;
+    }
+
+    _chunkSize(ci) {
+        return ci < this.numChunks - 1
+            ? this.CHUNK_BITS
+            : this.size - ci * this.CHUNK_BITS;
+    }
+
+    randomUncovered() {
+        const uncovered = this.size - this.count;
+        let target = Math.floor(Math.random() * uncovered);
+        for (let ci = 0; ci < this.numChunks; ci++) {
+            const cu = this._chunkSize(ci) - this.chunkCovered[ci];
+            if (target < cu) return this._pickInChunk(ci);
+            target -= cu;
+        }
+        return 0;
+    }
+
+    _pickInChunk(ci) {
+        const cs = this._chunkSize(ci);
+        const base = ci * this.CHUNK_BITS;
+        const chunk = this.chunks[ci];
+        if (!chunk) return base + Math.floor(Math.random() * cs);
+
+        // Fast path: rejection sampling when many uncovered
+        if (this.chunkCovered[ci] < cs * 0.99) {
+            let local;
+            do {
+                local = Math.floor(Math.random() * cs);
+            } while (chunk[local >>> 5] & (1 << (local & 31)));
+            return base + local;
+        }
+
+        // Slow path: scan words for an uncovered bit
+        const words = Math.ceil(cs / 32);
+        const startWord = Math.floor(Math.random() * words);
+        for (let i = 0; i < words; i++) {
+            const wi = (startWord + i) % words;
+            if (chunk[wi] === 0xFFFFFFFF) continue;
+            for (let b = 0; b < 32; b++) {
+                const idx = wi * 32 + b;
+                if (idx < cs && !(chunk[wi] & (1 << b))) return base + idx;
+            }
+        }
+        return base;
+    }
+}
+
 // ===== Greedy Covering Design =====
+
+// Flat arrays: fast O(1) operations, but limited to ~300M subsets
+// due to typed array length limits and memory.
+const FLAT_LIMIT = 300_000_000;
 
 function generateCovering(n, k, t) {
     if (t === 0) return [];
@@ -94,7 +184,17 @@ function generateCovering(n, k, t) {
         postMessage({ type: 'warning', code: 'TOO_MANY_SUBSETS', params: { n: totalSubsets.toLocaleString() } });
     }
 
-    // Coverage tracking with swap-based array for O(1) random access
+    if (totalSubsets <= FLAT_LIMIT) {
+        try {
+            return generateCoveringFlat(n, k, t, totalSubsets);
+        } catch (e) {
+            // Allocation failed; fall through to chunked
+        }
+    }
+    return generateCoveringChunked(n, k, t, totalSubsets);
+}
+
+function generateCoveringFlat(n, k, t, totalSubsets) {
     const covered = new Uint8Array(totalSubsets);
     let uncoveredCount = totalSubsets;
 
@@ -123,7 +223,6 @@ function generateCovering(n, k, t) {
     const numCandidates = Math.max(40, Math.min(200, Math.ceil(300000 / Math.max(1, totalSubsets) * 100)));
 
     while (uncoveredCount > 0) {
-        // Pick a random uncovered t-subset
         const targetRank = uncoveredArr[Math.floor(Math.random() * uncoveredCount)];
         const targetSubset = subsetUnrank(targetRank, t);
 
@@ -178,6 +277,70 @@ function generateCovering(n, k, t) {
     return tickets;
 }
 
+function generateCoveringChunked(n, k, t, totalSubsets) {
+    const bitSet = new ChunkedBitSet(totalSubsets);
+
+    const allNumbers = Array.from({ length: n }, (_, i) => i);
+    const tickets = [];
+    let lastProgressTime = Date.now();
+    const numCandidates = Math.max(40, Math.min(200, Math.ceil(300000 / Math.max(1, totalSubsets) * 100)));
+
+    while (bitSet.count < totalSubsets) {
+        const targetRank = bitSet.randomUncovered();
+        const targetSubset = subsetUnrank(targetRank, t);
+
+        const targetSet = new Set(targetSubset);
+        const remaining = allNumbers.filter(x => !targetSet.has(x));
+
+        let bestTicket = null;
+        let bestScore = -1;
+        const attempts = Math.min(numCandidates, C(remaining.length, k - t));
+
+        for (let c = 0; c < attempts; c++) {
+            const need = k - t;
+            for (let i = 0; i < need; i++) {
+                const j = i + Math.floor(Math.random() * (remaining.length - i));
+                [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+            }
+
+            const ticket = new Array(k);
+            for (let i = 0; i < t; i++) ticket[i] = targetSubset[i];
+            for (let i = 0; i < need; i++) ticket[t + i] = remaining[i];
+            ticket.sort((a, b) => a - b);
+
+            const ranks = getContainedRanks(ticket, t);
+            let score = 0;
+            for (const r of ranks) {
+                if (!bitSet.has(r)) score++;
+            }
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestTicket = ticket;
+            }
+        }
+
+        tickets.push(bestTicket);
+
+        const coveredRanks = getContainedRanks(bestTicket, t);
+        for (const r of coveredRanks) bitSet.add(r);
+
+        const now = Date.now();
+        if (now - lastProgressTime > 200 || bitSet.count === totalSubsets) {
+            lastProgressTime = now;
+            const uncovered = totalSubsets - bitSet.count;
+            postMessage({
+                type: 'progress',
+                percent: bitSet.count / totalSubsets,
+                ticketCount: tickets.length,
+                uncovered
+            });
+        }
+    }
+
+    return tickets;
+}
+
 // ===== Message Handler =====
 
 self.onmessage = function (e) {
@@ -218,15 +381,29 @@ self.onmessage = function (e) {
 
         // Mark coverage by iterating tickets (not subsets).
         // Each ticket covers C(k, t) subsets — far fewer than C(n, t) total.
-        const covered = new Uint8Array(totalCombinations);
+        // Use flat array for small problems, chunked bit set for large ones.
         let coveredCount = 0;
+        let hasCovered, addCovered;
+
+        if (totalCombinations <= FLAT_LIMIT) {
+            try {
+                const arr = new Uint8Array(totalCombinations);
+                hasCovered = r => arr[r];
+                addCovered = r => { arr[r] = 1; };
+            } catch (e) { /* fall through to chunked */ }
+        }
+        if (!hasCovered) {
+            const bitSet = new ChunkedBitSet(totalCombinations);
+            hasCovered = r => bitSet.has(r);
+            addCovered = r => bitSet.add(r);
+        }
 
         for (let i = 0; i < tickets.length; i++) {
             const ticket = tickets[i].slice().sort((a, b) => a - b);
             const ranks = getContainedRanks(ticket, t);
             for (const r of ranks) {
-                if (!covered[r]) {
-                    covered[r] = 1;
+                if (!hasCovered(r)) {
+                    addCovered(r);
                     coveredCount++;
                 }
             }
