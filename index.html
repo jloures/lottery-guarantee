@@ -81,6 +81,7 @@
 
             <div class="summary" id="lotterySummary"></div>
             <div id="configWarning" class="warning-box" hidden></div>
+            <div id="configError" class="field-error" hidden></div>
         </section>
 
         <!-- 2. Guarantee Level -->
@@ -91,7 +92,7 @@
             <div class="form-row">
                 <div class="field">
                     <label for="mainGuarantee" data-i18n="label.matchAtLeast">Match at least</label>
-                    <input type="number" id="mainGuarantee" value="3" min="1" max="6">
+                    <input type="number" id="mainGuarantee" value="3" min="1">
                 </div>
                 <span class="field-label" id="mainFieldLabel"></span>
             </div>
@@ -99,10 +100,12 @@
             <div class="form-row" id="bonusGuaranteeRow">
                 <div class="field">
                     <label for="bonusGuarantee" data-i18n="label.matchAtLeast">Match at least</label>
-                    <input type="number" id="bonusGuarantee" value="0" min="0" max="1">
+                    <input type="number" id="bonusGuarantee" value="0" min="0">
                 </div>
                 <span class="field-label" id="bonusFieldLabel"></span>
             </div>
+
+            <div id="guaranteeError" class="field-error" hidden></div>
 
             <div class="form-row">
                 <div class="field">

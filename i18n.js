@@ -117,6 +117,16 @@ en: {
     'sanity.failTitle': 'Guarantee Failed',
     'sanity.failDetail': '{missing} combination(s) are not covered by any ticket.',
 
+    'validate.pickMin': 'Pick must be at least {n}.',
+    'validate.poolMin': 'Pool must be at least {n}.',
+    'validate.pickMustBeLessThanPool': 'Pick ({pick}) must be less than pool ({pool}).',
+    'validate.bonusPickMin': 'Bonus pick must be at least {n}.',
+    'validate.bonusPoolMin': 'Bonus pool must be at least {n}.',
+    'validate.bonusPickMustBeLessThanPool': 'Bonus pick ({pick}) must be less than bonus pool ({pool}).',
+    'validate.guaranteeMin': 'Guarantee must be at least 1.',
+    'validate.guaranteeTooHigh': 'Guarantee must be at most {max} (less than pick of {pick}).',
+    'validate.bonusGuaranteeTooHigh': 'Bonus guarantee must be at most {max}.',
+
     'sim.winningTickets': 'Winning Tickets',
     'sim.winnerCount': '{n} ticket(s)',
 
@@ -242,6 +252,16 @@ pt: {
     'sanity.passDetail': 'Todas as {total} combina\u00e7\u00f5es poss\u00edveis de {t} entre {n} n\u00fameros foram testadas. Cada combina\u00e7\u00e3o \u00e9 coberta por pelo menos um bilhete.',
     'sanity.failTitle': 'Garantia Falhou',
     'sanity.failDetail': '{missing} combina\u00e7\u00e3o(\u00f5es) n\u00e3o est\u00e3o cobertas por nenhum bilhete.',
+
+    'validate.pickMin': 'Escolha deve ser pelo menos {n}.',
+    'validate.poolMin': 'Pool deve ser pelo menos {n}.',
+    'validate.pickMustBeLessThanPool': 'Escolha ({pick}) deve ser menor que o pool ({pool}).',
+    'validate.bonusPickMin': 'Escolha b\u00f4nus deve ser pelo menos {n}.',
+    'validate.bonusPoolMin': 'Pool b\u00f4nus deve ser pelo menos {n}.',
+    'validate.bonusPickMustBeLessThanPool': 'Escolha b\u00f4nus ({pick}) deve ser menor que o pool b\u00f4nus ({pool}).',
+    'validate.guaranteeMin': 'Garantia deve ser pelo menos 1.',
+    'validate.guaranteeTooHigh': 'Garantia deve ser no m\u00e1ximo {max} (menor que a escolha de {pick}).',
+    'validate.bonusGuaranteeTooHigh': 'Garantia b\u00f4nus deve ser no m\u00e1ximo {max}.',
 
     'sim.winningTickets': 'Bilhetes Vencedores',
     'sim.winnerCount': '{n} bilhete(s)',
@@ -369,6 +389,16 @@ es: {
     'sanity.failTitle': 'Garant\u00eda Fall\u00f3',
     'sanity.failDetail': '{missing} combinaci\u00f3n(es) no est\u00e1n cubiertas por ning\u00fan boleto.',
 
+    'validate.pickMin': 'Elecci\u00f3n debe ser al menos {n}.',
+    'validate.poolMin': 'Pool debe ser al menos {n}.',
+    'validate.pickMustBeLessThanPool': 'Elecci\u00f3n ({pick}) debe ser menor que el pool ({pool}).',
+    'validate.bonusPickMin': 'Elecci\u00f3n de bonificaci\u00f3n debe ser al menos {n}.',
+    'validate.bonusPoolMin': 'Pool de bonificaci\u00f3n debe ser al menos {n}.',
+    'validate.bonusPickMustBeLessThanPool': 'Elecci\u00f3n de bonificaci\u00f3n ({pick}) debe ser menor que el pool ({pool}).',
+    'validate.guaranteeMin': 'Garant\u00eda debe ser al menos 1.',
+    'validate.guaranteeTooHigh': 'Garant\u00eda debe ser como m\u00e1ximo {max} (menor que la elecci\u00f3n de {pick}).',
+    'validate.bonusGuaranteeTooHigh': 'Garant\u00eda de bonificaci\u00f3n debe ser como m\u00e1ximo {max}.',
+
     'sim.winningTickets': 'Boletos Ganadores',
     'sim.winnerCount': '{n} boleto(s)',
 
@@ -494,6 +524,16 @@ fr: {
     'sanity.passDetail': 'Les {total} combinaisons possibles de {t} parmi {n} num\u00e9ros ont \u00e9t\u00e9 test\u00e9es. Chaque combinaison est couverte par au moins un ticket.',
     'sanity.failTitle': '\u00c9chec de la Garantie',
     'sanity.failDetail': '{missing} combinaison(s) ne sont couvertes par aucun ticket.',
+
+    'validate.pickMin': 'Le choix doit \u00eatre au moins {n}.',
+    'validate.poolMin': 'Le pool doit \u00eatre au moins {n}.',
+    'validate.pickMustBeLessThanPool': 'Le choix ({pick}) doit \u00eatre inf\u00e9rieur au pool ({pool}).',
+    'validate.bonusPickMin': 'Le choix bonus doit \u00eatre au moins {n}.',
+    'validate.bonusPoolMin': 'Le pool bonus doit \u00eatre au moins {n}.',
+    'validate.bonusPickMustBeLessThanPool': 'Le choix bonus ({pick}) doit \u00eatre inf\u00e9rieur au pool bonus ({pool}).',
+    'validate.guaranteeMin': 'La garantie doit \u00eatre au moins 1.',
+    'validate.guaranteeTooHigh': 'La garantie doit \u00eatre au plus {max} (inf\u00e9rieure au choix de {pick}).',
+    'validate.bonusGuaranteeTooHigh': 'La garantie bonus doit \u00eatre au plus {max}.',
 
     'sim.winningTickets': 'Tickets Gagnants',
     'sim.winnerCount': '{n} ticket(s)',
@@ -621,6 +661,16 @@ de: {
     'sanity.failTitle': 'Garantie Fehlgeschlagen',
     'sanity.failDetail': '{missing} Kombination(en) werden von keinem Ticket abgedeckt.',
 
+    'validate.pickMin': 'Auswahl muss mindestens {n} sein.',
+    'validate.poolMin': 'Pool muss mindestens {n} sein.',
+    'validate.pickMustBeLessThanPool': 'Auswahl ({pick}) muss kleiner als der Pool ({pool}) sein.',
+    'validate.bonusPickMin': 'Bonusauswahl muss mindestens {n} sein.',
+    'validate.bonusPoolMin': 'Bonuspool muss mindestens {n} sein.',
+    'validate.bonusPickMustBeLessThanPool': 'Bonusauswahl ({pick}) muss kleiner als der Bonuspool ({pool}) sein.',
+    'validate.guaranteeMin': 'Garantie muss mindestens 1 sein.',
+    'validate.guaranteeTooHigh': 'Garantie darf h\u00f6chstens {max} sein (kleiner als Auswahl von {pick}).',
+    'validate.bonusGuaranteeTooHigh': 'Bonusgarantie darf h\u00f6chstens {max} sein.',
+
     'sim.winningTickets': 'Gewinnende Tickets',
     'sim.winnerCount': '{n} Ticket(s)',
 
@@ -746,6 +796,16 @@ zh: {
     'sanity.passDetail': '\u6240\u6709 {total} \u79cd\u4ece {n} \u4e2a\u53f7\u7801\u4e2d\u9009 {t} \u7684\u7ec4\u5408\u5747\u5df2\u6d4b\u8bd5\u3002\u6bcf\u4e2a\u7ec4\u5408\u81f3\u5c11\u88ab\u4e00\u5f20\u5f69\u7968\u8986\u76d6\u3002',
     'sanity.failTitle': '\u4fdd\u8bc1\u5931\u8d25',
     'sanity.failDetail': '{missing} \u4e2a\u7ec4\u5408\u672a\u88ab\u4efb\u4f55\u5f69\u7968\u8986\u76d6\u3002',
+
+    'validate.pickMin': '\u9009\u62e9\u6570\u81f3\u5c11\u4e3a {n}\u3002',
+    'validate.poolMin': '\u53f7\u7801\u6c60\u81f3\u5c11\u4e3a {n}\u3002',
+    'validate.pickMustBeLessThanPool': '\u9009\u62e9\u6570 ({pick}) \u5fc5\u987b\u5c0f\u4e8e\u53f7\u7801\u6c60 ({pool})\u3002',
+    'validate.bonusPickMin': '\u5956\u52b1\u9009\u62e9\u6570\u81f3\u5c11\u4e3a {n}\u3002',
+    'validate.bonusPoolMin': '\u5956\u52b1\u53f7\u7801\u6c60\u81f3\u5c11\u4e3a {n}\u3002',
+    'validate.bonusPickMustBeLessThanPool': '\u5956\u52b1\u9009\u62e9\u6570 ({pick}) \u5fc5\u987b\u5c0f\u4e8e\u5956\u52b1\u53f7\u7801\u6c60 ({pool})\u3002',
+    'validate.guaranteeMin': '\u4fdd\u8bc1\u81f3\u5c11\u4e3a 1\u3002',
+    'validate.guaranteeTooHigh': '\u4fdd\u8bc1\u6700\u591a\u4e3a {max}\uff08\u5c0f\u4e8e\u9009\u62e9\u6570 {pick}\uff09\u3002',
+    'validate.bonusGuaranteeTooHigh': '\u5956\u52b1\u4fdd\u8bc1\u6700\u591a\u4e3a {max}\u3002',
 
     'sim.winningTickets': '\u4e2d\u5956\u5f69\u7968',
     'sim.winnerCount': '{n} \u5f20\u5f69\u7968',

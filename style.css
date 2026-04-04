@@ -214,6 +214,22 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
+/* ===== Field Validation ===== */
+.input-error {
+    border-color: var(--danger) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.field-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
 /* ===== Summary ===== */
 .summary {
     background: var(--primary-light);

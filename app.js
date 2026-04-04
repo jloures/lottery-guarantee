@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'mainPick', 'mainPool', 'bonusEnabled', 'bonusPick', 'bonusPool',
         'bonusFields', 'lotterySummary', 'configWarning', 'mainGuarantee', 'bonusGuarantee',
         'mainFieldLabel', 'bonusFieldLabel', 'bonusGuaranteeRow', 'ticketCost',
+        'configError', 'guaranteeError',
         'estimateBox', 'warningBox', 'btnEstimate', 'btnGenerate', 'btnCancel',
         'progressBox', 'progressFill', 'progressText', 'errorBox',
         'ticketsSection', 'ticketCount', 'ticketCountLabel', 'totalCostLabel',
@@ -130,13 +131,13 @@ function onWorkerMessage(e) {
 
 // ===== Event Binding =====
 function bindEvents() {
-    dom.mainPick.addEventListener('input', () => { S.mainPick = Math.max(2, +dom.mainPick.value || 2); syncUI(); });
-    dom.mainPool.addEventListener('input', () => { S.mainPool = Math.max(3, +dom.mainPool.value || 3); syncUI(); });
+    dom.mainPick.addEventListener('input', () => { S.mainPick = +dom.mainPick.value || 0; syncUI(); });
+    dom.mainPool.addEventListener('input', () => { S.mainPool = +dom.mainPool.value || 0; syncUI(); });
     dom.bonusEnabled.addEventListener('change', () => { S.bonusEnabled = dom.bonusEnabled.checked; syncUI(); });
-    dom.bonusPool.addEventListener('input', () => { S.bonusPool = Math.max(2, +dom.bonusPool.value || 2); syncUI(); });
-    dom.bonusPick.addEventListener('input', () => { S.bonusPick = Math.max(1, +dom.bonusPick.value || 1); syncUI(); });
-    dom.mainGuarantee.addEventListener('input', () => { S.mainGuarantee = +dom.mainGuarantee.value; syncUI(); });
-    dom.bonusGuarantee.addEventListener('input', () => { S.bonusGuarantee = +dom.bonusGuarantee.value; });
+    dom.bonusPool.addEventListener('input', () => { S.bonusPool = +dom.bonusPool.value || 0; syncUI(); });
+    dom.bonusPick.addEventListener('input', () => { S.bonusPick = +dom.bonusPick.value || 0; syncUI(); });
+    dom.mainGuarantee.addEventListener('input', () => { S.mainGuarantee = +dom.mainGuarantee.value || 0; syncUI(); });
+    dom.bonusGuarantee.addEventListener('input', () => { S.bonusGuarantee = +dom.bonusGuarantee.value || 0; syncUI(); });
     dom.ticketCost.addEventListener('input', () => { S.ticketCost = +dom.ticketCost.value || 0; });
 
     dom.btnEstimate.addEventListener('click', requestEstimate);
@@ -162,18 +163,6 @@ function bindEvents() {
 
 // ===== UI Sync =====
 function syncUI() {
-    dom.mainGuarantee.max = S.mainPick - 1;
-    if (S.mainGuarantee >= S.mainPick) {
-        S.mainGuarantee = S.mainPick - 1;
-        dom.mainGuarantee.value = S.mainGuarantee;
-    }
-    if (S.mainGuarantee < 1) {
-        S.mainGuarantee = 1;
-        dom.mainGuarantee.value = 1;
-    }
-
-    dom.bonusGuarantee.max = S.bonusPick;
-
     dom.bonusFields.style.display = S.bonusEnabled ? 'flex' : 'none';
     dom.bonusGuaranteeRow.style.display = S.bonusEnabled ? 'flex' : 'none';
     dom.winningBonusGroup.style.display = S.bonusEnabled ? 'block' : 'none';
@@ -196,9 +185,86 @@ function syncUI() {
         dom.configWarning.hidden = true;
     }
 
+    // Validation
+    validateFields();
+
     dom.estimateBox.hidden = true;
     dom.warningBox.hidden = true;
     dom.errorBox.hidden = true;
+}
+
+function validateFields() {
+    const errors = [];
+    let configErrors = [];
+    let guaranteeErrors = [];
+
+    // Clear error styling
+    [dom.mainPick, dom.mainPool, dom.bonusPick, dom.bonusPool, dom.mainGuarantee, dom.bonusGuarantee].forEach(el => {
+        el.classList.remove('input-error');
+    });
+
+    // Section 1: Lottery config
+    if (S.mainPick < 2) {
+        configErrors.push(t('validate.pickMin', { n: 2 }));
+        dom.mainPick.classList.add('input-error');
+    }
+    if (S.mainPool < 3) {
+        configErrors.push(t('validate.poolMin', { n: 3 }));
+        dom.mainPool.classList.add('input-error');
+    }
+    if (S.mainPick >= S.mainPool) {
+        configErrors.push(t('validate.pickMustBeLessThanPool', { pick: S.mainPick, pool: S.mainPool }));
+        dom.mainPick.classList.add('input-error');
+    }
+    if (S.bonusEnabled) {
+        if (S.bonusPick < 1) {
+            configErrors.push(t('validate.bonusPickMin', { n: 1 }));
+            dom.bonusPick.classList.add('input-error');
+        }
+        if (S.bonusPool < 2) {
+            configErrors.push(t('validate.bonusPoolMin', { n: 2 }));
+            dom.bonusPool.classList.add('input-error');
+        }
+        if (S.bonusPick >= S.bonusPool) {
+            configErrors.push(t('validate.bonusPickMustBeLessThanPool', { pick: S.bonusPick, pool: S.bonusPool }));
+            dom.bonusPick.classList.add('input-error');
+        }
+    }
+
+    // Section 2: Guarantee level
+    if (S.mainGuarantee < 1) {
+        guaranteeErrors.push(t('validate.guaranteeMin'));
+        dom.mainGuarantee.classList.add('input-error');
+    } else if (S.mainGuarantee >= S.mainPick) {
+        guaranteeErrors.push(t('validate.guaranteeTooHigh', { max: S.mainPick - 1, pick: S.mainPick }));
+        dom.mainGuarantee.classList.add('input-error');
+    }
+    if (S.bonusEnabled && S.bonusGuarantee > S.bonusPick) {
+        guaranteeErrors.push(t('validate.bonusGuaranteeTooHigh', { max: S.bonusPick }));
+        dom.bonusGuarantee.classList.add('input-error');
+    }
+
+    // Show/hide error containers
+    if (configErrors.length > 0) {
+        dom.configError.innerHTML = configErrors.join('<br>');
+        dom.configError.hidden = false;
+    } else {
+        dom.configError.hidden = true;
+    }
+
+    if (guaranteeErrors.length > 0) {
+        dom.guaranteeError.innerHTML = guaranteeErrors.join('<br>');
+        dom.guaranteeError.hidden = false;
+    } else {
+        dom.guaranteeError.hidden = true;
+    }
+
+    // Disable action buttons when invalid
+    const hasErrors = configErrors.length > 0 || guaranteeErrors.length > 0;
+    dom.btnEstimate.disabled = hasErrors;
+    dom.btnGenerate.disabled = hasErrors;
+
+    return !hasErrors;
 }
 
 // ===== Estimate =====
