@@ -2,18 +2,19 @@
 
 // ===== Binomial Coefficients =====
 const MAX_N = 200;
+const MAX_K = MAX_N;
 const binom = [];
 for (let n = 0; n <= MAX_N; n++) {
-    binom[n] = new Float64Array(12);
+    binom[n] = new Float64Array(MAX_K + 1);
     binom[n][0] = 1;
-    for (let k = 1; k <= Math.min(n, 11); k++) {
+    for (let k = 1; k <= n; k++) {
         binom[n][k] = binom[n - 1][k - 1] + binom[n - 1][k];
     }
 }
 
 function C(n, k) {
     if (k < 0 || k > n) return 0;
-    if (n <= MAX_N && k <= 11) return binom[n][k];
+    if (n <= MAX_N && k <= MAX_K) return binom[n][k];
     let result = 1;
     const m = Math.min(k, n - k);
     for (let i = 0; i < m; i++) {
