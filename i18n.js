@@ -117,6 +117,10 @@ en: {
     'sanity.failTitle': 'Guarantee Failed',
     'sanity.failDetail': '{missing} combination(s) are not covered by any ticket.',
 
+    'csv.main': 'Main',
+    'csv.bonus': 'Bonus',
+    'csv.filename': 'lottery_tickets',
+
     'validate.pickMin': 'Pick must be at least {n}.',
     'validate.poolMin': 'Pool must be at least {n}.',
     'validate.pickMustBeLessThanPool': 'Pick ({pick}) must be less than pool ({pool}).',
@@ -252,6 +256,10 @@ pt: {
     'sanity.passDetail': 'Todas as {total} combina\u00e7\u00f5es poss\u00edveis de {t} entre {n} n\u00fameros foram testadas. Cada combina\u00e7\u00e3o \u00e9 coberta por pelo menos um bilhete.',
     'sanity.failTitle': 'Garantia Falhou',
     'sanity.failDetail': '{missing} combina\u00e7\u00e3o(\u00f5es) n\u00e3o est\u00e3o cobertas por nenhum bilhete.',
+
+    'csv.main': 'Principal',
+    'csv.bonus': 'Bonus',
+    'csv.filename': 'bilhetes_loteria',
 
     'validate.pickMin': 'Escolha deve ser pelo menos {n}.',
     'validate.poolMin': 'Pool deve ser pelo menos {n}.',
@@ -389,6 +397,10 @@ es: {
     'sanity.failTitle': 'Garant\u00eda Fall\u00f3',
     'sanity.failDetail': '{missing} combinaci\u00f3n(es) no est\u00e1n cubiertas por ning\u00fan boleto.',
 
+    'csv.main': 'Principal',
+    'csv.bonus': 'Bonus',
+    'csv.filename': 'boletos_loteria',
+
     'validate.pickMin': 'Elecci\u00f3n debe ser al menos {n}.',
     'validate.poolMin': 'Pool debe ser al menos {n}.',
     'validate.pickMustBeLessThanPool': 'Elecci\u00f3n ({pick}) debe ser menor que el pool ({pool}).',
@@ -524,6 +536,10 @@ fr: {
     'sanity.passDetail': 'Les {total} combinaisons possibles de {t} parmi {n} num\u00e9ros ont \u00e9t\u00e9 test\u00e9es. Chaque combinaison est couverte par au moins un ticket.',
     'sanity.failTitle': '\u00c9chec de la Garantie',
     'sanity.failDetail': '{missing} combinaison(s) ne sont couvertes par aucun ticket.',
+
+    'csv.main': 'Principal',
+    'csv.bonus': 'Bonus',
+    'csv.filename': 'tickets_loterie',
 
     'validate.pickMin': 'Le choix doit \u00eatre au moins {n}.',
     'validate.poolMin': 'Le pool doit \u00eatre au moins {n}.',
@@ -661,6 +677,10 @@ de: {
     'sanity.failTitle': 'Garantie Fehlgeschlagen',
     'sanity.failDetail': '{missing} Kombination(en) werden von keinem Ticket abgedeckt.',
 
+    'csv.main': 'Haupt',
+    'csv.bonus': 'Bonus',
+    'csv.filename': 'lotterie_tickets',
+
     'validate.pickMin': 'Auswahl muss mindestens {n} sein.',
     'validate.poolMin': 'Pool muss mindestens {n} sein.',
     'validate.pickMustBeLessThanPool': 'Auswahl ({pick}) muss kleiner als der Pool ({pool}) sein.',
@@ -796,6 +816,10 @@ zh: {
     'sanity.passDetail': '\u6240\u6709 {total} \u79cd\u4ece {n} \u4e2a\u53f7\u7801\u4e2d\u9009 {t} \u7684\u7ec4\u5408\u5747\u5df2\u6d4b\u8bd5\u3002\u6bcf\u4e2a\u7ec4\u5408\u81f3\u5c11\u88ab\u4e00\u5f20\u5f69\u7968\u8986\u76d6\u3002',
     'sanity.failTitle': '\u4fdd\u8bc1\u5931\u8d25',
     'sanity.failDetail': '{missing} \u4e2a\u7ec4\u5408\u672a\u88ab\u4efb\u4f55\u5f69\u7968\u8986\u76d6\u3002',
+
+    'csv.main': '\u4e3b\u53f7',
+    'csv.bonus': '\u5956\u52b1',
+    'csv.filename': '\u5f69\u7968',
 
     'validate.pickMin': '\u9009\u62e9\u6570\u81f3\u5c11\u4e3a {n}\u3002',
     'validate.poolMin': '\u53f7\u7801\u6c60\u81f3\u5c11\u4e3a {n}\u3002',

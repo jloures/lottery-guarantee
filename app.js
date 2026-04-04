@@ -546,9 +546,11 @@ function showSanityResult(d) {
 // ===== CSV Download =====
 function downloadCSV() {
     const hasBonus = S.bonusEnabled && S.bonusNumbers.length > 0;
+    const mainLabel = t('csv.main');
+    const bonusLabel = t('csv.bonus');
     const headers = [];
-    for (let i = 1; i <= S.mainPick; i++) headers.push(`Main${i}`);
-    if (hasBonus) for (let i = 1; i <= S.bonusPick; i++) headers.push(`Bonus${i}`);
+    for (let i = 1; i <= S.mainPick; i++) headers.push(`${mainLabel}${i}`);
+    if (hasBonus) for (let i = 1; i <= S.bonusPick; i++) headers.push(`${bonusLabel}${i}`);
 
     const lines = [headers.join(',')];
     for (let i = 0; i < S.tickets.length; i++) {
@@ -561,7 +563,7 @@ function downloadCSV() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `lottery_tickets_${S.mainPick}_${S.mainPool}.csv`;
+    a.download = `${t('csv.filename')}_${S.mainPick}_${S.mainPool}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 }
