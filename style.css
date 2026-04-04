@@ -742,6 +742,70 @@ input[type="number"]::-webkit-inner-spin-button {
     font-weight: 600;
 }
 
+/* ===== Winning Tickets Details ===== */
+.winning-tier-details {
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.winning-tier-details summary {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--input-bg);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.winning-tier-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.winning-tier-details summary::before {
+    content: '\25b6';
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    transition: transform 0.15s;
+}
+
+.winning-tier-details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.winning-tier-details summary:hover {
+    background: var(--border);
+}
+
+.winner-count {
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.winning-ticket-nums {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 14px;
+}
+
+.winner-num {
+    display: inline-block;
+    background: #ecfdf5;
+    color: #065f46;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid #a7f3d0;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
     .container { padding: 8px; }

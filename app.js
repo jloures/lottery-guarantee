@@ -598,6 +598,7 @@ function runSimulation() {
     const hasBonus = S.bonusEnabled && S.bonusNumbers.length > 0;
 
     const tierCounts = new Array(tiers.length).fill(0);
+    const tierTickets = tiers.map(() => []);
     let totalWinnings = 0;
     let bestGuaranteeMain = 0;
 
@@ -616,6 +617,7 @@ function runSimulation() {
             const tier = tiers[ti];
             if (mainHits >= tier.mainMatch && (!tier.bonusMatch || bonusHit)) {
                 tierCounts[ti]++;
+                tierTickets[ti].push(i + 1);
                 won = tier.prize;
                 break;
             }
@@ -722,6 +724,24 @@ function runSimulation() {
     }
 
     html += '</tbody></table></div>';
+
+    // Winning tickets per tier (collapsible)
+    let hasAnyWinners = tierTickets.some(arr => arr.length > 0);
+    if (hasAnyWinners) {
+        html += `<h3 style="margin-top:20px">${t('sim.winningTickets')}</h3>`;
+        for (let ti = 0; ti < tiers.length; ti++) {
+            const tier = tiers[ti];
+            const label = `${tier.mainMatch}/${S.mainPick}${tier.bonusMatch ? ' + Bonus' : ''}`;
+            const count = tierTickets[ti].length;
+            if (count === 0) continue;
+            html += `<details class="winning-tier-details">`;
+            html += `<summary>${label} — ${formatMoney(tier.prize)} <span class="winner-count">${t('sim.winnerCount', { n: count })}</span></summary>`;
+            html += `<div class="winning-ticket-nums">`;
+            html += tierTickets[ti].map(n => `<span class="winner-num">#${n}</span>`).join('');
+            html += `</div></details>`;
+        }
+    }
+
     html += `<h3 style="margin-top:20px">${t('drawnNumbers')}</h3><div style="display:flex;align-items:center;gap:6px;margin:8px 0;flex-wrap:wrap">`;
     for (const n of winMain) html += `<span class="ball match">${pad(n)}</span>`;
     if (hasBonus) {

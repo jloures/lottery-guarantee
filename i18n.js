@@ -117,6 +117,9 @@ en: {
     'sanity.failTitle': 'Guarantee Failed',
     'sanity.failDetail': '{missing} combination(s) are not covered by any ticket.',
 
+    'sim.winningTickets': 'Winning Tickets',
+    'sim.winnerCount': '{n} ticket(s)',
+
     'disclaimer.title': 'Disclaimer',
     'disclaimer.body': '<p>This tool is provided for <strong>educational and entertainment purposes only</strong>.</p><p>It does not guarantee any lottery winnings or financial returns. The term "guarantee" refers solely to the mathematical property of covering designs and does not imply a guarantee of profit.</p><p>The creators of this tool accept <strong>no liability</strong> for any financial losses incurred through the use of generated tickets.</p><p>By using this tool, you acknowledge that you understand the risks involved in gambling and agree to gamble responsibly.</p>',
     'disclaimer.accept': 'I Understand & Accept',
@@ -239,6 +242,9 @@ pt: {
     'sanity.passDetail': 'Todas as {total} combina\u00e7\u00f5es poss\u00edveis de {t} entre {n} n\u00fameros foram testadas. Cada combina\u00e7\u00e3o \u00e9 coberta por pelo menos um bilhete.',
     'sanity.failTitle': 'Garantia Falhou',
     'sanity.failDetail': '{missing} combina\u00e7\u00e3o(\u00f5es) n\u00e3o est\u00e3o cobertas por nenhum bilhete.',
+
+    'sim.winningTickets': 'Bilhetes Vencedores',
+    'sim.winnerCount': '{n} bilhete(s)',
 
     'disclaimer.title': 'Aviso Legal',
     'disclaimer.body': '<p>Esta ferramenta \u00e9 fornecida apenas para <strong>fins educacionais e de entretenimento</strong>.</p><p>Ela n\u00e3o garante ganhos na loteria ou retornos financeiros. O termo "garantia" refere-se exclusivamente \u00e0 propriedade matem\u00e1tica de designs de cobertura e n\u00e3o implica garantia de lucro.</p><p>Os criadores desta ferramenta <strong>n\u00e3o aceitam responsabilidade</strong> por quaisquer perdas financeiras decorrentes do uso dos bilhetes gerados.</p><p>Ao usar esta ferramenta, voc\u00ea reconhece que entende os riscos envolvidos em jogos de azar e concorda em jogar com responsabilidade.</p>',
@@ -363,6 +369,9 @@ es: {
     'sanity.failTitle': 'Garant\u00eda Fall\u00f3',
     'sanity.failDetail': '{missing} combinaci\u00f3n(es) no est\u00e1n cubiertas por ning\u00fan boleto.',
 
+    'sim.winningTickets': 'Boletos Ganadores',
+    'sim.winnerCount': '{n} boleto(s)',
+
     'disclaimer.title': 'Aviso Legal',
     'disclaimer.body': '<p>Esta herramienta se proporciona \u00fanicamente con <strong>fines educativos y de entretenimiento</strong>.</p><p>No garantiza ganancias en la loter\u00eda ni retornos financieros. El t\u00e9rmino "garant\u00eda" se refiere exclusivamente a la propiedad matem\u00e1tica de los dise\u00f1os de cobertura y no implica garant\u00eda de beneficio.</p><p>Los creadores de esta herramienta <strong>no aceptan responsabilidad</strong> por las p\u00e9rdidas financieras derivadas del uso de los boletos generados.</p><p>Al usar esta herramienta, usted reconoce que entiende los riesgos del juego y acepta jugar con responsabilidad.</p>',
     'disclaimer.accept': 'Entiendo y Acepto',
@@ -485,6 +494,9 @@ fr: {
     'sanity.passDetail': 'Les {total} combinaisons possibles de {t} parmi {n} num\u00e9ros ont \u00e9t\u00e9 test\u00e9es. Chaque combinaison est couverte par au moins un ticket.',
     'sanity.failTitle': '\u00c9chec de la Garantie',
     'sanity.failDetail': '{missing} combinaison(s) ne sont couvertes par aucun ticket.',
+
+    'sim.winningTickets': 'Tickets Gagnants',
+    'sim.winnerCount': '{n} ticket(s)',
 
     'disclaimer.title': 'Avertissement',
     'disclaimer.body': '<p>Cet outil est fourni \u00e0 des <strong>fins \u00e9ducatives et de divertissement uniquement</strong>.</p><p>Il ne garantit aucun gain \u00e0 la loterie ni retour financier. Le terme \u00ab garantie \u00bb se r\u00e9f\u00e8re uniquement \u00e0 la propri\u00e9t\u00e9 math\u00e9matique des designs de couverture et n\'implique aucune garantie de profit.</p><p>Les cr\u00e9ateurs de cet outil <strong>d\u00e9clinent toute responsabilit\u00e9</strong> pour les pertes financi\u00e8res li\u00e9es \u00e0 l\'utilisation des tickets g\u00e9n\u00e9r\u00e9s.</p><p>En utilisant cet outil, vous reconnaissez comprendre les risques li\u00e9s aux jeux de hasard et acceptez de jouer de mani\u00e8re responsable.</p>',
@@ -609,6 +621,9 @@ de: {
     'sanity.failTitle': 'Garantie Fehlgeschlagen',
     'sanity.failDetail': '{missing} Kombination(en) werden von keinem Ticket abgedeckt.',
 
+    'sim.winningTickets': 'Gewinnende Tickets',
+    'sim.winnerCount': '{n} Ticket(s)',
+
     'disclaimer.title': 'Haftungsausschluss',
     'disclaimer.body': '<p>Dieses Tool dient ausschlie\u00dflich <strong>Bildungs- und Unterhaltungszwecken</strong>.</p><p>Es garantiert keine Lotteriegewinne oder finanziellen Ertr\u00e4ge. Der Begriff \u201eGarantie\u201c bezieht sich ausschlie\u00dflich auf die mathematische Eigenschaft von Abdeckungsdesigns und impliziert keine Gewinngarantie.</p><p>Die Ersteller dieses Tools <strong>\u00fcbernehmen keine Haftung</strong> f\u00fcr finanzielle Verluste, die durch die Verwendung der generierten Tickets entstehen.</p><p>Durch die Nutzung dieses Tools best\u00e4tigen Sie, dass Sie die Risiken des Gl\u00fccksspiels verstehen und verantwortungsvoll spielen.</p>',
     'disclaimer.accept': 'Ich Verstehe und Akzeptiere',
@@ -731,6 +746,9 @@ zh: {
     'sanity.passDetail': '\u6240\u6709 {total} \u79cd\u4ece {n} \u4e2a\u53f7\u7801\u4e2d\u9009 {t} \u7684\u7ec4\u5408\u5747\u5df2\u6d4b\u8bd5\u3002\u6bcf\u4e2a\u7ec4\u5408\u81f3\u5c11\u88ab\u4e00\u5f20\u5f69\u7968\u8986\u76d6\u3002',
     'sanity.failTitle': '\u4fdd\u8bc1\u5931\u8d25',
     'sanity.failDetail': '{missing} \u4e2a\u7ec4\u5408\u672a\u88ab\u4efb\u4f55\u5f69\u7968\u8986\u76d6\u3002',
+
+    'sim.winningTickets': '\u4e2d\u5956\u5f69\u7968',
+    'sim.winnerCount': '{n} \u5f20\u5f69\u7968',
 
     'disclaimer.title': '\u514d\u8d23\u58f0\u660e',
     'disclaimer.body': '<p>\u672c\u5de5\u5177\u4ec5\u4f9b<strong>\u6559\u80b2\u548c\u5a31\u4e50\u76ee\u7684</strong>\u4f7f\u7528\u3002</p><p>\u5b83\u4e0d\u4fdd\u8bc1\u4efb\u4f55\u5f69\u7968\u4e2d\u5956\u6216\u8d22\u52a1\u56de\u62a5\u3002\u201c\u4fdd\u8bc1\u201d\u4e00\u8bcd\u4ec5\u6307\u8986\u76d6\u8bbe\u8ba1\u7684\u6570\u5b66\u5c5e\u6027\uff0c\u5e76\u4e0d\u610f\u5473\u7740\u5229\u6da6\u4fdd\u8bc1\u3002</p><p>\u672c\u5de5\u5177\u7684\u521b\u5efa\u8005<strong>\u4e0d\u5bf9</strong>\u56e0\u4f7f\u7528\u751f\u6210\u7684\u5f69\u7968\u800c\u4ea7\u751f\u7684\u4efb\u4f55\u8d22\u52a1\u635f\u5931\u627f\u62c5\u8d23\u4efb\u3002</p><p>\u4f7f\u7528\u672c\u5de5\u5177\u5373\u8868\u793a\u60a8\u4e86\u89e3\u535a\u5f69\u7684\u98ce\u9669\u5e76\u540c\u610f\u8d1f\u8d23\u4efb\u5730\u53c2\u4e0e\u3002</p>',
