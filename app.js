@@ -361,7 +361,7 @@ function renderStats() {
     // P(at least one ticket matches >= j) = 1 - (1 - pAtLeast[j])^N
     const pAnyTicket = pAtLeast.map(p => 1 - Math.pow(1 - p, numTickets));
 
-    let html = '<div class="table-scroll"><table class="breakdown-table"><thead><tr>';
+    let html = '<div class="table-scroll"><table class="breakdown-table stats-table"><thead><tr>';
     html += `<th>${t('stats.match')}</th>`;
     html += `<th>${t('stats.oddsPerTicket')}</th>`;
     html += `<th>${t('stats.expectedTickets')}</th>`;

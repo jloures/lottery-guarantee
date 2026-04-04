@@ -713,6 +713,10 @@ input[type="number"]::-webkit-inner-spin-button {
     min-width: 600px;
 }
 
+.breakdown-table.stats-table {
+    min-width: 360px;
+}
+
 .breakdown-table th,
 .breakdown-table td {
     padding: 8px 10px;
@@ -818,8 +822,26 @@ input[type="number"]::-webkit-inner-spin-button {
         padding: 10px 12px;
     }
 
+    /* Disclaimer modal */
+    .disclaimer-modal { padding: 20px; }
+    .disclaimer-modal h2 { font-size: 1.15rem; }
+    .disclaimer-modal-body { font-size: 0.9rem; }
+
+    /* Tickets header actions */
+    .tickets-header-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+    .tickets-header-actions .btn.small {
+        flex: 1;
+        text-align: center;
+    }
+
     /* Sanity check */
     .sanity-badge { flex-direction: column; text-align: center; gap: 10px; }
+
+    /* Guarantee tag */
+    .guarantee-tag { display: block; margin: 4px 0 0; }
 
     /* Pagination */
     .pagination { gap: 10px; font-size: 0.85rem; }
@@ -830,4 +852,5 @@ input[type="number"]::-webkit-inner-spin-button {
     .result-summary { grid-template-columns: 1fr; }
     .ball { width: 28px; height: 28px; font-size: 0.7rem; }
     header h1 { font-size: 1.15rem; }
+    .disclaimer-modal { padding: 16px; }
 }
