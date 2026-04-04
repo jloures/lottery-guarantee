@@ -602,7 +602,56 @@ input[type="number"]::-webkit-inner-spin-button {
     accent-color: var(--primary);
 }
 
-/* ===== Disclaimer ===== */
+/* ===== Disclaimer Modal ===== */
+.disclaimer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.disclaimer-modal {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 32px;
+    max-width: 540px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.disclaimer-modal h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.disclaimer-modal-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.disclaimer-modal-body p {
+    margin-bottom: 12px;
+}
+
+.disclaimer-modal-body strong {
+    color: var(--text);
+}
+
+.disclaimer-modal .btn {
+    width: 100%;
+}
+
+/* ===== Disclaimer Footer ===== */
 .disclaimer {
     text-align: center;
     font-size: 0.8rem;

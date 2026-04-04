@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'btnSanityCheck', 'sanityCheckInfo', 'sanityProgressBox',
         'sanityProgressFill', 'sanityProgressText', 'sanityResultBox',
         'statsSection', 'statsContent',
+        'disclaimerOverlay', 'btnAcceptDisclaimer',
         'simulationSection', 'winningMain', 'winningBonus', 'winningBonusGroup',
         'prizeTiers', 'btnAddTier', 'btnSimulate', 'simResults', 'resultsContent',
         'langSelect'
@@ -61,6 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
                : 'en';
     dom.langSelect.value = lang;
     setLocale(lang);
+
+    // Disclaimer
+    if (localStorage.getItem('lottery-disclaimer-accepted')) {
+        dom.disclaimerOverlay.hidden = true;
+    }
+    dom.btnAcceptDisclaimer.addEventListener('click', () => {
+        localStorage.setItem('lottery-disclaimer-accepted', '1');
+        dom.disclaimerOverlay.hidden = true;
+    });
 
     initWorker();
     bindEvents();
