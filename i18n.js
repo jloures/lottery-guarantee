@@ -124,7 +124,7 @@ en: {
     'validate.bonusPoolMin': 'Bonus pool must be at least {n}.',
     'validate.bonusPickMustBeLessThanPool': 'Bonus pick ({pick}) must be less than bonus pool ({pool}).',
     'validate.guaranteeMin': 'Guarantee must be at least 1.',
-    'validate.guaranteeTooHigh': 'Guarantee must be at most {max} (less than pick of {pick}).',
+    'validate.guaranteeTooHigh': 'Guarantee cannot exceed {max} (the number of picks per ticket).',
     'validate.bonusGuaranteeTooHigh': 'Bonus guarantee must be at most {max}.',
 
     'sim.winningTickets': 'Winning Tickets',
@@ -260,7 +260,7 @@ pt: {
     'validate.bonusPoolMin': 'Pool b\u00f4nus deve ser pelo menos {n}.',
     'validate.bonusPickMustBeLessThanPool': 'Escolha b\u00f4nus ({pick}) deve ser menor que o pool b\u00f4nus ({pool}).',
     'validate.guaranteeMin': 'Garantia deve ser pelo menos 1.',
-    'validate.guaranteeTooHigh': 'Garantia deve ser no m\u00e1ximo {max} (menor que a escolha de {pick}).',
+    'validate.guaranteeTooHigh': 'Garantia n\u00e3o pode exceder {max} (o n\u00famero de escolhas por bilhete).',
     'validate.bonusGuaranteeTooHigh': 'Garantia b\u00f4nus deve ser no m\u00e1ximo {max}.',
 
     'sim.winningTickets': 'Bilhetes Vencedores',
@@ -396,7 +396,7 @@ es: {
     'validate.bonusPoolMin': 'Pool de bonificaci\u00f3n debe ser al menos {n}.',
     'validate.bonusPickMustBeLessThanPool': 'Elecci\u00f3n de bonificaci\u00f3n ({pick}) debe ser menor que el pool ({pool}).',
     'validate.guaranteeMin': 'Garant\u00eda debe ser al menos 1.',
-    'validate.guaranteeTooHigh': 'Garant\u00eda debe ser como m\u00e1ximo {max} (menor que la elecci\u00f3n de {pick}).',
+    'validate.guaranteeTooHigh': 'Garant\u00eda no puede exceder {max} (el n\u00famero de elecciones por boleto).',
     'validate.bonusGuaranteeTooHigh': 'Garant\u00eda de bonificaci\u00f3n debe ser como m\u00e1ximo {max}.',
 
     'sim.winningTickets': 'Boletos Ganadores',
@@ -532,7 +532,7 @@ fr: {
     'validate.bonusPoolMin': 'Le pool bonus doit \u00eatre au moins {n}.',
     'validate.bonusPickMustBeLessThanPool': 'Le choix bonus ({pick}) doit \u00eatre inf\u00e9rieur au pool bonus ({pool}).',
     'validate.guaranteeMin': 'La garantie doit \u00eatre au moins 1.',
-    'validate.guaranteeTooHigh': 'La garantie doit \u00eatre au plus {max} (inf\u00e9rieure au choix de {pick}).',
+    'validate.guaranteeTooHigh': 'La garantie ne peut pas d\u00e9passer {max} (le nombre de choix par ticket).',
     'validate.bonusGuaranteeTooHigh': 'La garantie bonus doit \u00eatre au plus {max}.',
 
     'sim.winningTickets': 'Tickets Gagnants',
@@ -668,7 +668,7 @@ de: {
     'validate.bonusPoolMin': 'Bonuspool muss mindestens {n} sein.',
     'validate.bonusPickMustBeLessThanPool': 'Bonusauswahl ({pick}) muss kleiner als der Bonuspool ({pool}) sein.',
     'validate.guaranteeMin': 'Garantie muss mindestens 1 sein.',
-    'validate.guaranteeTooHigh': 'Garantie darf h\u00f6chstens {max} sein (kleiner als Auswahl von {pick}).',
+    'validate.guaranteeTooHigh': 'Garantie darf {max} nicht \u00fcberschreiten (die Anzahl der Auswahlen pro Ticket).',
     'validate.bonusGuaranteeTooHigh': 'Bonusgarantie darf h\u00f6chstens {max} sein.',
 
     'sim.winningTickets': 'Gewinnende Tickets',
@@ -804,7 +804,7 @@ zh: {
     'validate.bonusPoolMin': '\u5956\u52b1\u53f7\u7801\u6c60\u81f3\u5c11\u4e3a {n}\u3002',
     'validate.bonusPickMustBeLessThanPool': '\u5956\u52b1\u9009\u62e9\u6570 ({pick}) \u5fc5\u987b\u5c0f\u4e8e\u5956\u52b1\u53f7\u7801\u6c60 ({pool})\u3002',
     'validate.guaranteeMin': '\u4fdd\u8bc1\u81f3\u5c11\u4e3a 1\u3002',
-    'validate.guaranteeTooHigh': '\u4fdd\u8bc1\u6700\u591a\u4e3a {max}\uff08\u5c0f\u4e8e\u9009\u62e9\u6570 {pick}\uff09\u3002',
+    'validate.guaranteeTooHigh': '\u4fdd\u8bc1\u4e0d\u80fd\u8d85\u8fc7 {max}\uff08\u6bcf\u5f20\u5f69\u7968\u7684\u9009\u62e9\u6570\uff09\u3002',
     'validate.bonusGuaranteeTooHigh': '\u5956\u52b1\u4fdd\u8bc1\u6700\u591a\u4e3a {max}\u3002',
 
     'sim.winningTickets': '\u4e2d\u5956\u5f69\u7968',

@@ -260,13 +260,20 @@ self.onmessage = function (e) {
                 postMessage({ type: 'error', code: 'GUARANTEE_EXCEEDS_PICK' });
                 return;
             }
+            let mainTickets;
             if (mainGuarantee === mainPick) {
+                // Full guarantee requires all C(n,k) combinations
                 const total = C(mainPool, mainPick);
-                postMessage({ type: 'error', code: 'GUARANTEE_ALL_MATCHES', params: { k: mainPick, total: total.toLocaleString() } });
-                return;
+                mainTickets = [];
+                for (let r = 0; r < total; r++) {
+                    mainTickets.push(subsetUnrank(r, mainPick));
+                    if (r % 1000 === 0) {
+                        postMessage({ type: 'progress', percent: r / total, ticketCount: r, uncovered: total - r });
+                    }
+                }
+            } else {
+                mainTickets = generateCovering(mainPool, mainPick, mainGuarantee);
             }
-
-            const mainTickets = generateCovering(mainPool, mainPick, mainGuarantee);
 
             let finalTickets = [];
             let finalBonus = [];

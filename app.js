@@ -235,8 +235,8 @@ function validateFields() {
     if (S.mainGuarantee < 1) {
         guaranteeErrors.push(t('validate.guaranteeMin'));
         dom.mainGuarantee.classList.add('input-error');
-    } else if (S.mainGuarantee >= S.mainPick) {
-        guaranteeErrors.push(t('validate.guaranteeTooHigh', { max: S.mainPick - 1, pick: S.mainPick }));
+    } else if (S.mainGuarantee > S.mainPick) {
+        guaranteeErrors.push(t('validate.guaranteeTooHigh', { max: S.mainPick, pick: S.mainPick }));
         dom.mainGuarantee.classList.add('input-error');
     }
     if (S.bonusEnabled && S.bonusGuarantee > S.bonusPick) {
