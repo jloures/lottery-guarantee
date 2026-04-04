@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setLocale(lang);
 
     // Disclaimer
-    if (localStorage.getItem('lottery-disclaimer-accepted')) {
-        dom.disclaimerOverlay.hidden = true;
+    if (!localStorage.getItem('lottery-disclaimer-accepted')) {
+        dom.disclaimerOverlay.hidden = false;
     }
     dom.btnAcceptDisclaimer.addEventListener('click', () => {
         localStorage.setItem('lottery-disclaimer-accepted', '1');
