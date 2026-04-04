@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'disclaimerOverlay', 'btnAcceptDisclaimer',
         'simulationSection', 'winningMain', 'winningBonus', 'winningBonusGroup',
         'prizeTiers', 'btnAddTier', 'btnSimulate', 'simResults', 'resultsContent',
-        'langSelect'
+        'langSelect', 'disclaimerLangSelect'
     ].forEach(id => { dom[id] = $(id); });
 
     // Read initial state from DOM (handles browser form restoration)
@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                : SUPPORTED_LANGS.includes(browser) ? browser
                : 'en';
     dom.langSelect.value = lang;
+    dom.disclaimerLangSelect.value = lang;
     setLocale(lang);
 
     // Disclaimer
@@ -70,6 +71,13 @@ document.addEventListener('DOMContentLoaded', () => {
     dom.btnAcceptDisclaimer.addEventListener('click', () => {
         localStorage.setItem('lottery-disclaimer-accepted', '1');
         dom.disclaimerOverlay.hidden = true;
+    });
+    dom.disclaimerLangSelect.addEventListener('change', () => {
+        const newLang = dom.disclaimerLangSelect.value;
+        dom.langSelect.value = newLang;
+        setLocale(newLang);
+        syncUI();
+        generateDefaultTiers();
     });
 
     initWorker();
@@ -140,6 +148,7 @@ function bindEvents() {
     dom.btnSimulate.addEventListener('click', runSimulation);
 
     dom.langSelect.addEventListener('change', () => {
+        dom.disclaimerLangSelect.value = dom.langSelect.value;
         setLocale(dom.langSelect.value);
         syncUI();
         generateDefaultTiers();
