@@ -117,6 +117,8 @@ en: {
     'sanity.failTitle': 'Guarantee Failed',
     'sanity.failDetail': '{missing} combination(s) are not covered by any ticket.',
 
+    'disclaimer': '<strong>Disclaimer:</strong> This tool is provided for educational and entertainment purposes only. It does not guarantee any lottery winnings or financial returns. The term "guarantee" refers solely to the mathematical property of covering designs and does not imply a guarantee of profit. The creators of this tool accept no liability for any financial losses incurred through the use of generated tickets. Please gamble responsibly.',
+
     'odds.none': '\u2014',
     'odds.oneIn': '1 in {n}',
 },
@@ -234,6 +236,8 @@ pt: {
     'sanity.passDetail': 'Todas as {total} combina\u00e7\u00f5es poss\u00edveis de {t} entre {n} n\u00fameros foram testadas. Cada combina\u00e7\u00e3o \u00e9 coberta por pelo menos um bilhete.',
     'sanity.failTitle': 'Garantia Falhou',
     'sanity.failDetail': '{missing} combina\u00e7\u00e3o(\u00f5es) n\u00e3o est\u00e3o cobertas por nenhum bilhete.',
+
+    'disclaimer': '<strong>Aviso Legal:</strong> Esta ferramenta \u00e9 fornecida apenas para fins educacionais e de entretenimento. Ela n\u00e3o garante ganhos na loteria ou retornos financeiros. O termo "garantia" refere-se exclusivamente \u00e0 propriedade matem\u00e1tica de designs de cobertura e n\u00e3o implica garantia de lucro. Os criadores desta ferramenta n\u00e3o aceitam responsabilidade por quaisquer perdas financeiras decorrentes do uso dos bilhetes gerados. Jogue com responsabilidade.',
 
     'odds.none': '\u2014',
     'odds.oneIn': '1 em {n}',
@@ -353,6 +357,8 @@ es: {
     'sanity.failTitle': 'Garant\u00eda Fall\u00f3',
     'sanity.failDetail': '{missing} combinaci\u00f3n(es) no est\u00e1n cubiertas por ning\u00fan boleto.',
 
+    'disclaimer': '<strong>Aviso Legal:</strong> Esta herramienta se proporciona \u00fanicamente con fines educativos y de entretenimiento. No garantiza ganancias en la loter\u00eda ni retornos financieros. El t\u00e9rmino "garant\u00eda" se refiere exclusivamente a la propiedad matem\u00e1tica de los dise\u00f1os de cobertura y no implica garant\u00eda de beneficio. Los creadores de esta herramienta no aceptan responsabilidad por las p\u00e9rdidas financieras derivadas del uso de los boletos generados. Juegue con responsabilidad.',
+
     'odds.none': '\u2014',
     'odds.oneIn': '1 en {n}',
 },
@@ -470,6 +476,8 @@ fr: {
     'sanity.passDetail': 'Les {total} combinaisons possibles de {t} parmi {n} num\u00e9ros ont \u00e9t\u00e9 test\u00e9es. Chaque combinaison est couverte par au moins un ticket.',
     'sanity.failTitle': '\u00c9chec de la Garantie',
     'sanity.failDetail': '{missing} combinaison(s) ne sont couvertes par aucun ticket.',
+
+    'disclaimer': '<strong>Avertissement :</strong> Cet outil est fourni \u00e0 des fins \u00e9ducatives et de divertissement uniquement. Il ne garantit aucun gain \u00e0 la loterie ni retour financier. Le terme \u00ab garantie \u00bb se r\u00e9f\u00e8re uniquement \u00e0 la propri\u00e9t\u00e9 math\u00e9matique des designs de couverture et n\'implique aucune garantie de profit. Les cr\u00e9ateurs de cet outil d\u00e9clinent toute responsabilit\u00e9 pour les pertes financi\u00e8res li\u00e9es \u00e0 l\'utilisation des tickets g\u00e9n\u00e9r\u00e9s. Jouez de mani\u00e8re responsable.',
 
     'odds.none': '\u2014',
     'odds.oneIn': '1 sur {n}',
@@ -589,6 +597,8 @@ de: {
     'sanity.failTitle': 'Garantie Fehlgeschlagen',
     'sanity.failDetail': '{missing} Kombination(en) werden von keinem Ticket abgedeckt.',
 
+    'disclaimer': '<strong>Haftungsausschluss:</strong> Dieses Tool dient ausschlie\u00dflich Bildungs- und Unterhaltungszwecken. Es garantiert keine Lotteriegewinne oder finanziellen Ertr\u00e4ge. Der Begriff \u201eGarantie\u201c bezieht sich ausschlie\u00dflich auf die mathematische Eigenschaft von Abdeckungsdesigns und impliziert keine Gewinngarantie. Die Ersteller dieses Tools \u00fcbernehmen keine Haftung f\u00fcr finanzielle Verluste, die durch die Verwendung der generierten Tickets entstehen. Bitte spielen Sie verantwortungsvoll.',
+
     'odds.none': '\u2014',
     'odds.oneIn': '1 zu {n}',
 },
@@ -706,6 +716,8 @@ zh: {
     'sanity.passDetail': '\u6240\u6709 {total} \u79cd\u4ece {n} \u4e2a\u53f7\u7801\u4e2d\u9009 {t} \u7684\u7ec4\u5408\u5747\u5df2\u6d4b\u8bd5\u3002\u6bcf\u4e2a\u7ec4\u5408\u81f3\u5c11\u88ab\u4e00\u5f20\u5f69\u7968\u8986\u76d6\u3002',
     'sanity.failTitle': '\u4fdd\u8bc1\u5931\u8d25',
     'sanity.failDetail': '{missing} \u4e2a\u7ec4\u5408\u672a\u88ab\u4efb\u4f55\u5f69\u7968\u8986\u76d6\u3002',
+
+    'disclaimer': '<strong>\u514d\u8d23\u58f0\u660e\uff1a</strong>\u672c\u5de5\u5177\u4ec5\u4f9b\u6559\u80b2\u548c\u5a31\u4e50\u76ee\u7684\u4f7f\u7528\u3002\u5b83\u4e0d\u4fdd\u8bc1\u4efb\u4f55\u5f69\u7968\u4e2d\u5956\u6216\u8d22\u52a1\u56de\u62a5\u3002\u201c\u4fdd\u8bc1\u201d\u4e00\u8bcd\u4ec5\u6307\u8986\u76d6\u8bbe\u8ba1\u7684\u6570\u5b66\u5c5e\u6027\uff0c\u5e76\u4e0d\u610f\u5473\u7740\u5229\u6da6\u4fdd\u8bc1\u3002\u672c\u5de5\u5177\u7684\u521b\u5efa\u8005\u4e0d\u5bf9\u56e0\u4f7f\u7528\u751f\u6210\u7684\u5f69\u7968\u800c\u4ea7\u751f\u7684\u4efb\u4f55\u8d22\u52a1\u635f\u5931\u627f\u62c5\u8d23\u4efb\u3002\u8bf7\u8d1f\u8d23\u4efb\u5730\u53c2\u4e0e\u535a\u5f69\u3002',
 
     'odds.none': '\u2014',
     'odds.oneIn': '{n} \u5206\u4e4b\u4e00',

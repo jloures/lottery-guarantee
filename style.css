@@ -602,6 +602,19 @@ input[type="number"]::-webkit-inner-spin-button {
     accent-color: var(--primary);
 }
 
+/* ===== Disclaimer ===== */
+.disclaimer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding: 20px 16px 32px;
+}
+
+.disclaimer strong {
+    color: var(--text);
+}
+
 /* ===== Simulation Results ===== */
 .results-grid {
     display: grid;
