@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lottery Guarantee Calculator</title>
+    <title>Loterando - Lottery Guarantee Calculator</title>
+    <meta name="description" content="Loterando generates the minimum lottery tickets needed to mathematically guarantee matching a set number of drawn numbers, using covering design algorithms.">
+    <meta name="keywords" content="lottery, guarantee, calculator, covering design, lottery tickets, combinatorics, lotto, loterando">
+    <meta name="author" content="Loterando">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0f0f0f">
+    <link rel="canonical" href="https://loterando.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://loterando.com/">
+    <meta property="og:title" content="Loterando - Lottery Guarantee Calculator">
+    <meta property="og:description" content="Generate the minimum lottery tickets needed to mathematically guarantee a prize using covering design algorithms.">
+    <meta property="og:image" content="https://loterando.com/og-image.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="pt_BR">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="zh_CN">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Loterando - Lottery Guarantee Calculator">
+    <meta name="twitter:description" content="Generate the minimum lottery tickets needed to mathematically guarantee a prize.">
+    <meta name="twitter:image" content="https://loterando.com/og-image.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Loterando",
+        "url": "https://loterando.com/",
+        "description": "Generate the minimum lottery tickets needed to mathematically guarantee matching a set number of drawn numbers.",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "inLanguage": ["en", "pt", "es", "fr", "de", "zh"]
+    }
+    </script>
+
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="disclaimerOverlay" class="disclaimer-overlay" hidden>
@@ -43,9 +91,15 @@
                     <option value="zh">&#20013;&#25991;</option>
                 </select>
             </div>
-            <h1 data-i18n="page.title">Lottery Guarantee Calculator</h1>
+            <h1 data-i18n="page.title">Loterando</h1>
             <p class="subtitle" data-i18n="page.subtitle">Generate the minimum tickets needed to guarantee a prize</p>
         </header>
+
+        <!-- Ad slot: top -->
+        <div class="ad-slot" id="ad-top">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000001" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
 
         <!-- 1. Lottery Configuration -->
         <section class="card">
@@ -115,6 +169,12 @@
             </div>
         </section>
 
+        <!-- Ad slot: mid -->
+        <div class="ad-slot" id="ad-mid">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000002" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
         <!-- 3. Generate -->
         <section class="card">
             <h2><span class="step">3</span> <span data-i18n="section3.title">Generate Tickets</span></h2>
@@ -174,6 +234,12 @@
             </div>
         </section>
 
+        <!-- Ad slot: after tickets -->
+        <div class="ad-slot" id="ad-after-tickets">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000003" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
         <!-- 5. Statistics -->
         <section class="card" id="statsSection" hidden>
             <h2><span class="step">5</span> <span data-i18n="section5stats.title">Ticket Statistics</span></h2>
@@ -209,6 +275,12 @@
                 <div id="resultsContent"></div>
             </div>
         </section>
+
+        <!-- Ad slot: bottom -->
+        <div class="ad-slot" id="ad-bottom">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000004" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
 
         <footer class="disclaimer" data-i18n-html="disclaimer">
             <strong>Disclaimer:</strong> This tool is provided for educational and entertainment purposes only. It does not guarantee any lottery winnings or financial returns. The term "guarantee" refers solely to the mathematical property of covering designs and does not imply a guarantee of profit. The creators of this tool accept no liability for any financial losses incurred through the use of generated tickets. Please gamble responsibly.

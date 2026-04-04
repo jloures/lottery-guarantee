@@ -1,21 +1,23 @@
 :root {
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --primary-light: #dbeafe;
+    --primary: #d4a017;
+    --primary-hover: #b8860b;
+    --primary-light: rgba(212, 160, 23, 0.15);
     --danger: #ef4444;
     --danger-hover: #dc2626;
-    --success: #10b981;
+    --success: #22c55e;
     --warning: #f59e0b;
-    --text: #1e293b;
-    --text-secondary: #64748b;
-    --bg: #f1f5f9;
-    --card: #ffffff;
-    --border: #e2e8f0;
-    --input-bg: #f8fafc;
+    --text: #f0e6d3;
+    --text-secondary: #a89984;
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --input-bg: #141414;
     --radius: 12px;
     --radius-sm: 8px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2);
+    --glow: 0 0 20px rgba(212, 160, 23, 0.15);
+    --card-border: 1px solid #2a2a2a;
 }
 
 *, *::before, *::after {
@@ -32,6 +34,22 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-text-size-adjust: 100%;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: #3a3a3a;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #4a4a4a;
 }
 
 .container {
@@ -78,8 +96,11 @@ header {
 header h1 {
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text);
     letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #d4a017, #f5d778, #d4a017);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
@@ -91,6 +112,7 @@ header h1 {
 /* ===== Cards ===== */
 .card {
     background: var(--card);
+    border: var(--card-border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     padding: 24px;
@@ -120,7 +142,7 @@ header h1 {
     height: 28px;
     border-radius: 50%;
     background: var(--primary);
-    color: white;
+    color: #0f0f0f;
     font-size: 0.85rem;
     font-weight: 700;
     flex-shrink: 0;
@@ -184,6 +206,15 @@ input[type="number"]::-webkit-inner-spin-button {
     opacity: 1;
 }
 
+/* Autofill fix for dark backgrounds */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    border-color: var(--border);
+}
+
 .form-group {
     margin-bottom: 12px;
 }
@@ -221,8 +252,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .field-error {
-    background: #fef2f2;
-    color: #991b1b;
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     margin-top: 8px;
@@ -233,7 +264,7 @@ input[type="number"]::-webkit-inner-spin-button {
 /* ===== Summary ===== */
 .summary {
     background: var(--primary-light);
-    color: var(--primary-hover);
+    color: var(--primary);
     padding: 10px 16px;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -275,12 +306,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .btn.primary {
     background: var(--primary);
-    color: white;
-    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.3);
+    color: #0f0f0f;
+    box-shadow: 0 1px 2px rgba(212, 160, 23, 0.3);
 }
 
 .btn.primary:hover:not(:disabled) {
     background: var(--primary-hover);
+    box-shadow: var(--glow);
 }
 
 .btn.secondary {
@@ -325,12 +357,12 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .info-box strong {
-    color: var(--primary-hover);
+    color: var(--primary);
 }
 
 .error-box {
-    background: #fef2f2;
-    color: #991b1b;
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
     border-radius: var(--radius-sm);
     padding: 14px 18px;
     margin-top: 12px;
@@ -339,8 +371,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .warning-box {
-    background: #fffbeb;
-    color: #92400e;
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
     border-radius: var(--radius-sm);
     padding: 14px 18px;
     margin-bottom: 12px;
@@ -428,7 +460,7 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 34px;
     border-radius: 50%;
     background: var(--primary);
-    color: white;
+    color: #0f0f0f;
     font-weight: 700;
     font-size: 0.8rem;
     flex-shrink: 0;
@@ -436,11 +468,12 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .ball.bonus {
     background: var(--warning);
-    color: #1e293b;
+    color: #0f0f0f;
 }
 
 .ball.match {
     background: var(--success);
+    color: white;
     animation: pop 0.3s ease;
 }
 
@@ -486,8 +519,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .sanity-info {
-    background: #f0f9ff;
-    color: #0c4a6e;
+    background: rgba(212, 160, 23, 0.08);
+    color: var(--text-secondary);
     border-radius: var(--radius-sm);
     padding: 12px 16px;
     margin-bottom: 12px;
@@ -499,7 +532,7 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     gap: 14px;
-    background: #ecfdf5;
+    background: rgba(34, 197, 94, 0.1);
     border: 2px solid var(--success);
     border-radius: var(--radius-sm);
     padding: 14px 18px;
@@ -507,7 +540,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .sanity-badge.fail {
-    background: #fef2f2;
+    background: rgba(239, 68, 68, 0.1);
     border-color: var(--danger);
 }
 
@@ -537,20 +570,20 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .sanity-badge-text strong {
     font-size: 0.95rem;
-    color: #065f46;
+    color: #4ade80;
 }
 
 .sanity-badge.fail .sanity-badge-text strong {
-    color: #991b1b;
+    color: #fca5a5;
 }
 
 .sanity-badge-text span {
     font-size: 0.85rem;
-    color: #047857;
+    color: #86efac;
 }
 
 .sanity-badge.fail .sanity-badge-text span {
-    color: #b91c1c;
+    color: #fca5a5;
 }
 
 /* ===== Pagination ===== */
@@ -601,7 +634,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .tier-row .remove-tier:hover {
-    background: #fef2f2;
+    background: rgba(239, 68, 68, 0.1);
 }
 
 .tier-row .checkbox-inline {
@@ -622,7 +655,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .disclaimer-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -632,8 +665,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .disclaimer-modal {
     background: var(--card);
+    border: var(--card-border);
     border-radius: var(--radius);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--glow);
     padding: 32px;
     max-width: 540px;
     width: 100%;
@@ -672,7 +706,7 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 16px;
-    color: var(--text);
+    color: var(--primary);
 }
 
 .disclaimer-modal-body {
@@ -707,6 +741,20 @@ input[type="number"]::-webkit-inner-spin-button {
     color: var(--text);
 }
 
+/* ===== Ad Slots ===== */
+.ad-slot {
+    text-align: center;
+    margin: 16px 0;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad-slot ins {
+    max-width: 100%;
+}
+
 /* ===== Simulation Results ===== */
 .results-grid {
     display: grid;
@@ -722,6 +770,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .result-card {
     background: var(--input-bg);
+    border: var(--card-border);
     border-radius: var(--radius-sm);
     padding: 14px 16px;
     text-align: center;
@@ -781,7 +830,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .breakdown-table .highlight {
-    background: #ecfdf5;
+    background: rgba(34, 197, 94, 0.1);
     font-weight: 600;
 }
 
@@ -840,13 +889,13 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .winner-num {
     display: inline-block;
-    background: #ecfdf5;
-    color: #065f46;
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
     font-size: 0.8rem;
     font-weight: 600;
     padding: 3px 10px;
     border-radius: 12px;
-    border: 1px solid #a7f3d0;
+    border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
 /* ===== Responsive ===== */
@@ -952,6 +1001,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
     /* Pagination */
     .pagination { gap: 10px; font-size: 0.85rem; }
+
+    /* Ad slots */
+    .ad-slot { min-height: 50px; }
 }
 
 /* Small phones */

@@ -5,7 +5,7 @@ let currentLocale = 'en';
 const translations = {
 // ─────────────────────────── English ───────────────────────────
 en: {
-    'page.title': 'Lottery Guarantee Calculator',
+    'page.title': 'Loterando',
     'page.subtitle': 'Generate the minimum tickets needed to guarantee a prize',
 
     'section1.title': 'Define Your Lottery',
@@ -119,7 +119,7 @@ en: {
 
     'csv.main': 'Main',
     'csv.bonus': 'Bonus',
-    'csv.filename': 'lottery_tickets',
+    'csv.filename': 'loterando_tickets',
 
     'validate.pickMin': 'Pick must be at least {n}.',
     'validate.poolMin': 'Pool must be at least {n}.',
@@ -145,7 +145,7 @@ en: {
 
 // ─────────────────────────── Português ───────────────────────────
 pt: {
-    'page.title': 'Calculadora de Garantia de Loteria',
+    'page.title': 'Loterando',
     'page.subtitle': 'Gere o m\u00ednimo de bilhetes necess\u00e1rios para garantir um pr\u00eamio',
 
     'section1.title': 'Defina Sua Loteria',
@@ -259,7 +259,7 @@ pt: {
 
     'csv.main': 'Principal',
     'csv.bonus': 'Bonus',
-    'csv.filename': 'bilhetes_loteria',
+    'csv.filename': 'loterando_bilhetes',
 
     'validate.pickMin': 'Escolha deve ser pelo menos {n}.',
     'validate.poolMin': 'Pool deve ser pelo menos {n}.',
@@ -285,7 +285,7 @@ pt: {
 
 // ─────────────────────────── Español ───────────────────────────
 es: {
-    'page.title': 'Calculadora de Garant\u00eda de Loter\u00eda',
+    'page.title': 'Loterando',
     'page.subtitle': 'Genera el m\u00ednimo de boletos necesarios para garantizar un premio',
 
     'section1.title': 'Define Tu Loter\u00eda',
@@ -399,7 +399,7 @@ es: {
 
     'csv.main': 'Principal',
     'csv.bonus': 'Bonus',
-    'csv.filename': 'boletos_loteria',
+    'csv.filename': 'loterando_boletos',
 
     'validate.pickMin': 'Elecci\u00f3n debe ser al menos {n}.',
     'validate.poolMin': 'Pool debe ser al menos {n}.',
@@ -425,7 +425,7 @@ es: {
 
 // ─────────────────────────── Français ───────────────────────────
 fr: {
-    'page.title': 'Calculateur de Garantie Loterie',
+    'page.title': 'Loterando',
     'page.subtitle': 'G\u00e9n\u00e9rez le minimum de tickets n\u00e9cessaires pour garantir un gain',
 
     'section1.title': 'D\u00e9finir Votre Loterie',
@@ -539,7 +539,7 @@ fr: {
 
     'csv.main': 'Principal',
     'csv.bonus': 'Bonus',
-    'csv.filename': 'tickets_loterie',
+    'csv.filename': 'loterando_tickets',
 
     'validate.pickMin': 'Le choix doit \u00eatre au moins {n}.',
     'validate.poolMin': 'Le pool doit \u00eatre au moins {n}.',
@@ -565,7 +565,7 @@ fr: {
 
 // ─────────────────────────── Deutsch ───────────────────────────
 de: {
-    'page.title': 'Lotterie-Garantie-Rechner',
+    'page.title': 'Loterando',
     'page.subtitle': 'Berechne die minimale Anzahl an Tickets, um einen Gewinn zu garantieren',
 
     'section1.title': 'Lotterie definieren',
@@ -679,7 +679,7 @@ de: {
 
     'csv.main': 'Haupt',
     'csv.bonus': 'Bonus',
-    'csv.filename': 'lotterie_tickets',
+    'csv.filename': 'loterando_tickets',
 
     'validate.pickMin': 'Auswahl muss mindestens {n} sein.',
     'validate.poolMin': 'Pool muss mindestens {n} sein.',
@@ -705,7 +705,7 @@ de: {
 
 // ─────────────────────────── 中文 ───────────────────────────
 zh: {
-    'page.title': '\u5f69\u7968\u4fdd\u8bc1\u8ba1\u7b97\u5668',
+    'page.title': 'Loterando',
     'page.subtitle': '\u751f\u6210\u4fdd\u8bc1\u4e2d\u5956\u6240\u9700\u7684\u6700\u5c11\u5f69\u7968\u6570\u91cf',
 
     'section1.title': '\u5b9a\u4e49\u4f60\u7684\u5f69\u7968',
@@ -819,7 +819,7 @@ zh: {
 
     'csv.main': '\u4e3b\u53f7',
     'csv.bonus': '\u5956\u52b1',
-    'csv.filename': '\u5f69\u7968',
+    'csv.filename': 'loterando',
 
     'validate.pickMin': '\u9009\u62e9\u6570\u81f3\u5c11\u4e3a {n}\u3002',
     'validate.poolMin': '\u53f7\u7801\u6c60\u81f3\u5c11\u4e3a {n}\u3002',
@@ -865,7 +865,7 @@ function setLocale(locale) {
     currentLocale = locale;
     document.documentElement.lang = locale;
     document.title = t('page.title');
-    localStorage.setItem('lottery-lang', locale);
+    localStorage.setItem('loterando-lang', locale);
     translatePage();
 }
 

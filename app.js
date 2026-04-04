@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     S.ticketCost = +dom.ticketCost.value;
 
     // Language detection
-    const saved = localStorage.getItem('lottery-lang');
+    const saved = localStorage.getItem('loterando-lang');
     const browser = (navigator.language || '').slice(0, 2);
     const lang = SUPPORTED_LANGS.includes(saved) ? saved
                : SUPPORTED_LANGS.includes(browser) ? browser
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setLocale(lang);
 
     // Disclaimer
-    if (!localStorage.getItem('lottery-disclaimer-accepted')) {
+    if (!localStorage.getItem('loterando-disclaimer-accepted')) {
         dom.disclaimerOverlay.hidden = false;
     }
     dom.btnAcceptDisclaimer.addEventListener('click', () => {
-        localStorage.setItem('lottery-disclaimer-accepted', '1');
+        localStorage.setItem('loterando-disclaimer-accepted', '1');
         dom.disclaimerOverlay.hidden = true;
     });
     dom.disclaimerLangSelect.addEventListener('change', () => {
