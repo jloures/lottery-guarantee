@@ -9,6 +9,8 @@ Generate the minimum set of lottery tickets that **mathematically guarantees** a
 - **Configurable lottery format** — set any "pick K from N" main draw, with optional bonus draw
 - **Guaranteed coverage** — uses a greedy covering design algorithm to find the smallest ticket set that covers every possible t-subset
 - **Estimate before generating** — preview ticket count and cost range without running the full computation
+- **Ticket statistics** — probability breakdown per match level, expected wins, coverage ratio, and guaranteed-level highlighting
+- **Sanity check** — exhaustively verify the guarantee by testing every possible combination against your tickets, with a certified pass/fail badge
 - **Simulation** — enter the actual drawn numbers and prize tiers to see results, expected values, probabilities, and ROI
 - **Multi-language** — English, Portuguese, Spanish, French, German, and Chinese
 - **Runs entirely in the browser** — no backend required; heavy computation runs in a Web Worker to keep the UI responsive
