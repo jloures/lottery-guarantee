@@ -2,7 +2,7 @@
 
 Generate the minimum set of lottery tickets that **mathematically guarantees** a specified match level, no matter which numbers are drawn.
 
-**Live demo:** [jloures.github.io/lottery-guarantee](https://jloures.github.io/lottery-guarantee/)
+**Live demo:** [loterando.com](https://loterando.com/)
 
 ## Features
 
